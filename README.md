@@ -4,8 +4,6 @@
 
 Site web du club Abso'Ludique (jeux de société) à TELECOM Nancy
 
-
-
 ## Back-end
 ### Installation
 Dans le répertoire back du projet, veuillez exécuter les commandes suivantes pour installer les dépendances :
@@ -33,6 +31,22 @@ pytest
 
 ### Mise à jour des dépendances
 ```bash
+cd bash
 source venv/bin/activate
 pip freeze > requirements.txt
+```
+
+## Front-End
+
+### Installation
+Dans le répertoire front du projet, veuillez exécuter les commandes suivantes pour installer les dépendances :
+```bash
+cd front
+```
+
+### Lancement
+Après avoir installé le projet, vous pouvez le lancer en utilisant
+```bash
+cd front
+npm run dev
 ```
