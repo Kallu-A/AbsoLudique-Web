@@ -1,7 +1,7 @@
 import os
 
-from flask import Flask
 from dotenv import load_dotenv
+from flask import Flask
 
 import controller
 from setup_sql import database_path_test, database_path, db
@@ -42,6 +42,7 @@ def create_app(test=False):
 
 if __name__ == '__main__':
     load_dotenv()
+
     HOST = os.getenv('HOST')
     PORT = os.getenv('PORT')
 
