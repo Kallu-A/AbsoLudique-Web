@@ -1,4 +1,4 @@
-# <img title="Jardi'Quest logo" alt="Logo d'abso'ludique" src="./.res-readme/Jardi'Quest.svg" style="height: 65px; width: 65px; vertical-align: middle" width="65" height="65" >Abso'Ludique site Web 
+# <img title="Abso'Ludique logo" alt="Logo d'abso'ludique" src=".res_readme/abso.svg" style="height: 65px; width: 65px; vertical-align: middle" width="65" height="65" >Abso'Ludique site Web 
 
 ## Description du projet
 
