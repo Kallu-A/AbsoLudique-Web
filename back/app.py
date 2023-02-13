@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from flask import Flask
 
 import controller
+from logger import logger_config
 from setup_sql import database_path_test, database_path, db
 
 # To find the root of the project everywhere
@@ -31,6 +32,7 @@ def create_app(test=False):
     app.config['UPLOAD_FOLDER'] = upload_folder
     app.config['MAX_CONTENT_LENGTH'] = size_limit_mo_upload * 1024 * 1024
 
+    logger_config()
     app.register_blueprint(controller.app)
 
     db.init_app(app)
