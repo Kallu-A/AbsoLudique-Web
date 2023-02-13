@@ -1,4 +1,4 @@
-# <img title="Abso'Ludique logo" alt="Logo d'abso'ludique" src=".res_readme/abso.svg" style="height: 105px; width: 105px; vertical-align: middle" width="105" height="105" >Abso'Ludique site Web 
+# <img title="Abso'Ludique logo" alt="Logo d'abso'ludique" src=".res_readme/abso.svg" style="height: 80px; width: 80px; vertical-align: middle" width="80" height="80" >Abso'Ludique site Web 
 
 ## Description du projet
 
@@ -50,4 +50,8 @@ Après avoir installé le projet, vous pouvez le lancer en utilisant
 ```bash
 cd front
 npm run dev
+# or
+npm run build
+# or 
+npm start
 ```
