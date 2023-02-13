@@ -42,6 +42,7 @@ pip freeze > requirements.txt
 Dans le répertoire front du projet, veuillez exécuter les commandes suivantes pour installer les dépendances :
 ```bash
 cd front
+npm install
 ```
 
 ### Lancement
