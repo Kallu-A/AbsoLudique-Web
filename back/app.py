@@ -12,16 +12,16 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 UPLOAD_FOLDER = 'jardiquest/static/upload'
 
+HOST = 'localhost'
+PORT = 5001
 
-# create the flask app (useful to be separate from the app.py
-# to be used in the test and to put all the code in the jardiquest folder
 def create_app(test=False):
     if test:
         db_path = 'sqlite://' + database_path_test
     else:
         db_path = 'sqlite://' + database_path
 
-    size_limit_mo = 10
+    size_limit_mo_upload = 10
 
     # config the app to make app.py the start point but the actual program is one directory lower
     app = Flask(__name__,
@@ -31,10 +31,10 @@ def create_app(test=False):
     app.config['SQLALCHEMY_DATABASE_URI'] = db_path
     app.config['SECRET_KEY'] = '=xyb3y=2+z-kd!3rit)hfrg0j!e!oggyny0$5bliwlb8v76j'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = size_limit_mo * 1024 * 1024
+    app.config['MAX_CONTENT_LENGTH'] = size_limit_mo_upload * 1024 * 1024
 
     app.register_blueprint(controller.app)
-    # flask_serv_intern.register_error_handler(HTTPException, handling_status_error)
+
     db.init_app(app)
     with app.app_context():
         db.create_all()
@@ -43,4 +43,5 @@ def create_app(test=False):
 
 
 if __name__ == '__main__':
-    flask_serv = create_app()
+    app = create_app()
+    app.run(port=PORT, host=HOST)
