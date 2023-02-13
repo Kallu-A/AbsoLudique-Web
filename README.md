@@ -18,7 +18,7 @@ Après avoir installé le projet, vous pouvez le lancer en utilisant
 ```bash
 cd back
 source venv/bin/activate
-flask run
+python3 app.py
 ```
 
 ### Lancement des tests
@@ -31,7 +31,7 @@ pytest
 
 ### Mise à jour des dépendances
 ```bash
-cd bash
+cd back
 source venv/bin/activate
 pip freeze > requirements.txt
 ```

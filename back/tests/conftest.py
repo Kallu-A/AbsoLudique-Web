@@ -1,8 +1,8 @@
 import os
 
 import pytest
-from back.app import create_app, ROOT_DIR
-from back.setup_sql import db
+from app import create_app, ROOT_DIR
+from setup_sql import db
 
 
 # Allow to not write the lines in the test_function everywhere instead just pass testing_client in argument

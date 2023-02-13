@@ -1,5 +1,10 @@
+import os
+
+from dotenv import load_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-database_path = '/absoludique.sqlite'
-database_path_test = '/absoludique_test.sqlite'
+load_dotenv()
+
+database_path = os.getenv('DATABASE_PATH')
+database_path_test = os.getenv('DATABASE_PATH_TEST')

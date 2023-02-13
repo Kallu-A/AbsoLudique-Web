@@ -1,5 +1,5 @@
-from back.controller import app
-from back.model.path.home_model import home_model
+from controller import app
+from model.path.home_model import home_model
 
 
 @app.get("/")
