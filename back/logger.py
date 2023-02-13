@@ -6,7 +6,7 @@ def logger_config():
         'version': 1,
         'formatters': {
             'default': {
-                'format': '%(asctime)s :: %(levelname)s :: %(threadName)s :: %(module)s :: %(message)s',
+                'format': '[ %(levelname)s | %(asctime)s | %(threadName)s | %(module)s ] - %(message)s',
             }
         },
         'handlers': {

@@ -25,21 +25,22 @@ def create_app(test=False):
     secret_key = os.getenv('SECRET_KEY')
 
     # config the app to make app.py the start point but the actual program is one directory lower
-    app = Flask(__name__,
-                static_folder=static)
-    app.config['SQLALCHEMY_DATABASE_URI'] = db_path
-    app.config['SECRET_KEY'] = secret_key
-    app.config['UPLOAD_FOLDER'] = upload_folder
-    app.config['MAX_CONTENT_LENGTH'] = size_limit_mo_upload * 1024 * 1024
+    app_intern = Flask(__name__,
+                       static_folder=static)
+    app_intern.config['SQLALCHEMY_DATABASE_URI'] = db_path
+    app_intern.config['SECRET_KEY'] = secret_key
+    app_intern.config['UPLOAD_FOLDER'] = upload_folder
+    app_intern.config['MAX_CONTENT_LENGTH'] = size_limit_mo_upload * 1024 * 1024
 
     logger_config()
-    app.register_blueprint(controller.app)
+    app_intern.register_blueprint(controller.app)
 
-    db.init_app(app)
-    with app.app_context():
+    db.init_app(app_intern)
+    with app_intern.app_context():
         db.create_all()
 
-    return app
+    app_intern.logger.info("Start of the server")
+    return app_intern
 
 
 if __name__ == '__main__':
