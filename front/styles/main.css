@@ -541,12 +541,12 @@ video {
   padding-bottom: 0.5rem;
 }
 .text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
+  font-size: 1.6rem;
+  line-height: 1.7rem;
 }
 .text-s {
-  font-size: 1.15rem;
-  line-height: 1.55rem;
+  font-size: 1.4rem;
+  line-height: 1.4rem;
 }
 .font-bold {
   font-weight: 700;
@@ -574,7 +574,15 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .active-path {
-  border-bottom: 1px solid;
+  cursor: default;
+}
+.active-text {
+  border-bottom: 3px solid;
+  width: fit-content;
+}
+.not-active-text {
+  border-bottom: 3px solid transparent;
+  width: fit-content;
 }
 @media (min-width: 1024px) {
 
