@@ -6,11 +6,11 @@ import {useRouter} from "next/router";
 
 // add here to put it in the navbar
 const navigationRoutes = [
-    { name:"history", path:"/history" },
-    { name:"history", path:"/history" },
-        { name:"admin", path:"/admin" },
-    { name:"history", path:"/history" },
-    { name:"history", path:"/history" },
+    { name:"history", path:"history" },
+    { name:"history", path:"history" },
+        { name:"admin", path:"admin" },
+    { name:"history", path:"history" },
+    { name:"history", path:"history" },
 ];
 
 
@@ -66,7 +66,7 @@ export default function Navbar() {
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
 
               { navigationRoutes.map((route) => {
-                  const isActive = router.asPath === route.path
+                  const isActive = router.asPath === '/' + route.path
                   console.log(isActive)
                   return (
                       <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
