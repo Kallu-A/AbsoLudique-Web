@@ -6,11 +6,7 @@ import {useRouter} from "next/router";
 
 // add here to put it in the navbar
 const navigationRoutes = [
-    { name:"history", path:"history" },
-    { name:"history", path:"history" },
-        { name:"admin", path:"admin" },
-    { name:"history", path:"history" },
-    { name:"history", path:"history" },
+    //{ name:"Armoire", path:"armoire" },
 ];
 
 
@@ -37,6 +33,8 @@ export default function Navbar() {
         </Link>
 
         {/* hamburger nav */}
+        { navigationRoutes.length !== 0 &&
+
         <button
           className=' inline-flex p-3 hover:bg-grey-medium rounded lg:hidden text-white ml-auto hover:text-white outline-none'
           onClick={handleClick}
@@ -55,13 +53,15 @@ export default function Navbar() {
               d='M4 6h16M4 12h16M4 18h16'
             />
           </svg>
-        </button>
+        </button>}
 
         <div
           className={`${
             active ? '' : 'hidden'
           }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
+
+
           {/* right part */}
           <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
 
