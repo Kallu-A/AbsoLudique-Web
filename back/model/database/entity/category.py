@@ -18,4 +18,4 @@ class Category(db.Model):
     idBoardGame = db.Column(db.Integer, db.ForeignKey("board_game.idBoardgame"))
     boardGame = db.relationship("Boardgame", back_populates="category")
 
-    category = db.Column(Enum(CategoryValue))
+    category = db.Column(Enum(CategoryValue, by_value=True))

@@ -29,3 +29,6 @@ class Boardgame(db.Model):
 
     category = db.relationship("Category", back_populates="boardGame")
 
+    def __json__(self):
+        return ['idBoardgame', 'name', 'difficulty', 'picture', 'minPlayers', 'maxPlayers', 'duration', 'category']
+

@@ -14,7 +14,6 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 from model.database.entity import boardgame, category
 
 
-
 def create_app(test=False):
     load_dotenv()
 
