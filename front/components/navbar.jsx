@@ -21,7 +21,7 @@ export default function Navbar() {
   return (
     <>
 
-      <nav className='flex items-center flex-wrap bg-gray-heavy p-3 '>
+      <nav className='flex items-center flex-wrap bg-grey-heavy p-3 '>
 
         {/* left part */}
         <Link href='/' className='inline-flex items-center p-2 mr-4 '>
@@ -67,7 +67,6 @@ export default function Navbar() {
 
               { navigationRoutes.map((route) => {
                   const isActive = router.asPath === '/' + route.path
-                  console.log(isActive)
                   return (
                       <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
                           <div className={`${isActive ? 'active-text': 'not-active-text'}`}>

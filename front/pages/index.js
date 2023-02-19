@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import armoire from "./armoire";
 
 export default function Home() {
   return (
@@ -7,7 +8,8 @@ export default function Home() {
         <title>Abso'Ludique</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div>Hello World</div>
+        {armoire()}
     </div>
   );
 }
+

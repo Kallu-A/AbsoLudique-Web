@@ -13,5 +13,5 @@ class CategorySchema(SQLAlchemySchema):
     idCategory = auto_field()
 
     idBoardGame = auto_field()
-    category = EnumField(CategoryValue)
+    category = EnumField(CategoryValue, by_value=True)
 

@@ -2,8 +2,9 @@ from model.database.entity.boardgame import Boardgame
 from model.database.schema.boardgame_schema import BoardgameSchema
 
 
-def games_model(start: int, end: int):
-    boards: list = Boardgame.query.filter(Boardgame.idBoardgame >= start).filter(Boardgame.idBoardgame <= end).all()
+def games_model(cursor: int, limit: int):
+    boards: list = Boardgame.query.filter(Boardgame.idBoardgame >= cursor)\
+        .filter(Boardgame.idBoardgame < cursor + limit).all()
     boardgame_schema = BoardgameSchema()
 
     for i in range(len(boards)):

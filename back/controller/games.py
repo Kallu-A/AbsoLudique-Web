@@ -1,11 +1,17 @@
+from flask import request
+
 from controller import app
 from model.path.games_model import games_model
 
 
-# pagination with [start, end]
-@app.get("/games/<int:start>/<int:end>")
-def get_games(start: int, end: int):
-    return games_model(start, end)
+# pagination with [cursor, cursor + limit[
+@app.get("/games")
+def get_games():
+    args = request.args
+    print(args)
+    cursor = args.get('cursor', type=int)
+    limit = args.get('limit', type=int)
+    return games_model(cursor, limit)
 
 
 @app.post("/game")
