@@ -1,49 +1,52 @@
 import {fetcher} from "../api";
 import Game from "../components/game";
-import useSWR from 'swr'
+import useSWRInfinite from "swr/infinite";
 
-function get_games(cursor, limit) {
-	let path = 'games?cursor=' + cursor + '&limit=' + limit
-	return useSWR(path, fetcher)
-}
-
-let items_per_call = 10
-
-function actualise_pagination(pagination) {
-	pagination.start = pagination.start + items_per_call
-}
-
-function new_content(pagination, games) {
-	actualise_pagination(pagination)
-	let new_games = get_games(pagination.cursor, pagination.limit).data
-	console.log('new add')
-	for (let game in new_games) {
-		games.push(game)
-	}
-}
+let PAGE_SIZE = 4
 
 export default function armoire() {
-	let pagination = {cursor: 1, limit: items_per_call}
-	const games = get_games(pagination.cursor, pagination.limit).data
 
+    const {
+        data,
+        mutate,
+        size,
+        setSize,
+        isValidating,
+        isLoading
+    } = useSWRInfinite(
+        (index) => 'games?cursor=' + ( (index * PAGE_SIZE) + 1) + '&limit=' + PAGE_SIZE
+        ,
+        fetcher
+    );
 
-	return (
-		<>
+    const games = data ? [].concat(...data) : [];
+    const isLoadingMore =
+        isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
+    const isEmpty = data?.[0]?.length === 0;
+    const isReachingEnd =
+        isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
-			<div className='flex flex-wrap margin flex-games'>
-				{ games && games.map( (game) => {
-				return (
-					<Game key={game.idBoardgame} game={game}/>
-				)
-			})}
-			</div>
-			{ games && <>
-				{pagination.cursor + pagination.limit === games.length + 1 &&
-					<button onClick={new_content(pagination, games)}>Voir plus</button>
-				}
-			</>
-			}
+    return (
+        <>
+            <div className='flex flex-wrap margin flex-games'>
+                { games && games.map( (game) => {
+                    return (
+                        <Game key={game.idBoardgame} game={game}/>
+                    )
+                })}
+            </div>
+            { games && !isReachingEnd && <>
+                    <button
+                        disabled={isLoadingMore || isReachingEnd}
+                        onClick={() => setSize(size + 1)}
+                    >
+                        {isLoadingMore
+                            ? "chargement..."
+                            : "voir plus"}
+                    </button>
+            </>
+            }
 
-		</>
-	)
+        </>
+    )
 }

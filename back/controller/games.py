@@ -4,7 +4,7 @@ from controller import app
 from model.path.games_model import games_model
 
 
-# pagination with [cursor, cursor + limit[
+# pagination with [cursor, cursor + limit]
 @app.get("/games")
 def get_games():
     args = request.args
