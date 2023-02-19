@@ -10,6 +10,10 @@ from setup_sql import database_path_test, database_path, db
 # To find the root of the project everywhere
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# do not remove this import allows SQLAlchemy to find the table
+from model.database.entity import boardgame, category
+
+
 
 def create_app(test=False):
     load_dotenv()

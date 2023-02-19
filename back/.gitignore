@@ -326,4 +326,4 @@ $RECYCLE.BIN/
 # Add by project team
 ../.idea
 instance
-jardiquest/static/upload/
+static/

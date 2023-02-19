@@ -1,5 +1,7 @@
 import enum
 
+from sqlalchemy import Enum
+
 from setup_sql import db
 
 
@@ -8,8 +10,12 @@ class CategoryValue(enum.Enum):
 
 
 # Category of board games
-class Category(db.model):
-    idCategory = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    idBoardGame = db.Column(db.Integer, db.ForeignKey("boardgame.idBoardgame"))
+class Category(db.Model):
+    __tablename__ = "category"
 
-    category = db.Column(enum.Enum(CategoryValue))
+    idCategory = db.Column(db.Integer, primary_key=True, autoincrement=True)
+
+    idBoardGame = db.Column(db.Integer, db.ForeignKey("board_game.idBoardgame"))
+    boardGame = db.relationship("Boardgame", back_populates="category")
+
+    category = db.Column(Enum(CategoryValue))
