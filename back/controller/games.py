@@ -1,17 +1,28 @@
 from flask import request
 
 from controller import app
-from model.path.games_model import games_model
+from model.path.games_model import games_model, games_filter_model
 
 
 # pagination with [cursor, cursor + limit]
+# filter args are:
+# - players, difficulty, duration, variation
 @app.get("/games")
 def get_games():
     args = request.args
     print(args)
     cursor = args.get('cursor', type=int)
     limit = args.get('limit', type=int)
-    return games_model(cursor, limit)
+
+    players = args.get('players', type=int, default=None)
+    difficulty = args.get('difficulty', type=int, default=None)
+    duration = args.get('duration', type=int, default=None)
+    variation = args.get('variation', type=float, default=None)
+
+    if players is None and difficulty is None and duration is None and variation is None:
+        return games_model(cursor, limit)
+
+    return games_filter_model(cursor, limit, players, difficulty, duration, variation)
 
 
 @app.post("/game")
