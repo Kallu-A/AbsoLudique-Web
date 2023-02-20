@@ -1,5 +1,4 @@
 from flask import request
-
 from controller import app
 from model.path.games_model import games_model, games_filter_model, game_id
 
@@ -18,12 +17,16 @@ def get_games():
     duration = args.get('duration', type=int, default=None)
     variation = args.get('variation', type=float, default=None)
     name = args.get('name', type=str, default=None)
+
+    category = args.get('category', type=str, default=None)
+
     if name == '':
         name = None
-    if players is None and difficulty is None and duration is None and variation is None and name is None:
+    if players is None and difficulty is None and duration is None \
+            and variation is None and name is None and category is None:
         return games_model(cursor, limit)
 
-    return games_filter_model(cursor, limit, players, difficulty, duration, variation, name)
+    return games_filter_model(cursor, limit, players, difficulty, duration, variation, name, category)
 
 
 @app.get("/game/<int:id_game>")

@@ -7,6 +7,11 @@ from setup_sql import db
 
 class CategoryValue(enum.Enum):
     card = 1
+    board = 2
+    deckbuilding = 3
+    cooperative = 4
+    betrayal = 5
+    roleplay = 6
 
 
 # Category of board games

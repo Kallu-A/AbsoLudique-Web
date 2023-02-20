@@ -1,4 +1,5 @@
 from model.database.entity.boardgame import Boardgame, Difficulty
+from model.database.entity.category import CategoryValue
 from model.database.schema.boardgame_schema import BoardgameSchema
 
 
@@ -22,24 +23,37 @@ def games_model(cursor: int, limit: int):
 
 # pagination with filter
 def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
-                       duration: int, variation: float, name: str):
+                       duration: int, variation: float, name: str, category_str: str):
 
-    min_players_bool = True if players is None else Boardgame.minPlayers <= players
-    max_players_bool = True if players is None else Boardgame.maxPlayers >= players
-    difficulty_bool = True if difficulty is None else Boardgame.difficulty == Difficulty(difficulty)
     variation = 0.2 if variation is None else variation
-    min_duration_bool = True if duration is None else duration - duration * variation <= Boardgame.duration
-    max_duration_bool = True if duration is None else duration + duration * variation >= Boardgame.duration
-    name_bool = True if name is None else Boardgame.name.like("%{}%".format(name))
 
-    boards: list = Boardgame.query \
-        .filter(min_players_bool)\
-        .filter(max_players_bool)\
-        .filter(difficulty_bool)\
-        .filter(min_duration_bool)\
-        .filter(max_duration_bool)\
-        .filter(name_bool)\
+    build_query = Boardgame.query
+    if players is not None:
+        # min players and max players
+        build_query = build_query\
+            .filter(Boardgame.minPlayers <= players) \
+            .filter(Boardgame.maxPlayers >= players)
+
+    if difficulty is not None:
+        build_query = build_query\
+            .filter(Boardgame.difficulty == Difficulty(difficulty))
+
+    if duration is not None:
+        build_query = build_query\
+            .filter(duration - duration * variation <= Boardgame.duration)\
+            .filter(duration + duration * variation >= Boardgame.duration)
+
+    if name is not None:
+        build_query = build_query\
+            .filter(Boardgame.name.like("%{}%".format(name)))
+
+    if category_str is not None:
+        for category_val in map(lambda value: CategoryValue( int(value) ).name, category_str.split('/')):
+            build_query = build_query.filter(Boardgame.category.any(category=category_val))
+
+    boards = build_query\
         .all()
+
     boardgame_schema = BoardgameSchema()
 
     games = []

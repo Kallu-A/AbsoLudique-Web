@@ -19,6 +19,7 @@ class Boardgame(db.Model):
     idBoardgame = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     name = db.Column(db.String(100), nullable=False)
+    #state = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(200), nullable=False)
     difficulty = db.Column(Enum(Difficulty))
     picture = db.Column(db.String(30), nullable=False)
