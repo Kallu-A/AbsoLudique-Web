@@ -29,6 +29,7 @@
 
 html {
     line-height: 1.5; /* 1 */
+    overflow: hidden;
     -webkit-text-size-adjust: 100%; /* 2 */
     -moz-tab-size: 4; /* 3 */
     -o-tab-size: 4;
@@ -44,6 +45,7 @@ html {
 
 body {
     margin: 0; /* 1 */
+    overflow: hidden;
     line-height: inherit; /* 2 */
 }
 
@@ -482,6 +484,9 @@ video {
 .margin {
     margin: 20px;
 }
+.padding {
+    padding: 20px;
+}
 .margin-litle {
     margin: 10px;
 }
@@ -497,6 +502,12 @@ video {
 }
 .bg-grey-lite {
     background-color: rgba(0, 0, 0, 0.05);
+}
+.padding-bar {
+    padding: 10px;
+}
+.bg-grey-litle-plain {
+    background-color: #F2F2F2;
 }
 .center-text {
     text-align: center;
@@ -612,6 +623,74 @@ video {
 }
 .flex-games {
         justify-content: center;
+}
+.button-style {
+    background-color: rgb(74 82 90);
+    color: white;
+    border-radius: 5px;
+}
+.button-larger {
+    font-size: 1.3em;
+    padding: 8px;
+}
+.button-smaller {
+    font-size: 1.1em;
+    padding: 4px;
+}
+.button-style:hover {
+    background-color: rgb(96 106 117);
+}
+.margin-title {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.title-color {
+    color: rgb(74 82 90);
+    font-weight: bolder;
+}
+.center-button {
+    text-align: center;
+    margin: auto;
+    align-self: center;
+    align-content: center;
+    justify-content: center;
+
+}
+.margin-top-xs {
+    margin-top: 20px;
+}
+.spacing-vertical {
+    height: 20px;
+}
+.input-player {
+    width: 30px;
+    border: 1px inset;
+    border-radius: 4px;
+    text-align: center;
+}
+.input-duration {
+    border: 1px inset;
+    width: 60px;
+    border-radius: 4px;
+    text-align: center;
+}
+.input-difficulty {
+    width: 120px;
+    border-radius: 4px;
+    text-align: center;
+}
+.decal-vertical-bar {
+    margin-left: 150px;
+}
+.vertical-bar {
+  width: 150px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+}
+.scrollable-vertical {
+    height: 100vh;
+    overflow: auto;
 }
 @media (max-width: 580px) {
     .flex-games {
