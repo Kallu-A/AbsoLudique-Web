@@ -744,6 +744,10 @@ video {
   position: fixed;
   left: 0;
 }
+.scrollable-vertical-filter {
+    overflow: auto;
+    height: 80vh;
+}
 .scrollable-vertical {
     height: 90vh;
     overflow: auto;
