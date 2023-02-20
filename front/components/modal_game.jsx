@@ -3,9 +3,9 @@ import {Fragment} from "react";
 import {BACK_PATH} from "../api";
 import Image from "next/image";
 import value_to_difficulty from "../convert/value_to_difficulty";
+import value_to_category from "../convert/value_to_category";
 
 export default function GameModal({game, isShow, setShow}) {
-
     function closeModal() {
         setShow(false)
     }
@@ -71,6 +71,17 @@ export default function GameModal({game, isShow, setShow}) {
                                     <div title="Difficulté du jeu" className='bg-grey-lite rounded inline-flex margin-left-xl padding-litle'>
                                         <p>{value_to_difficulty(game.difficulty)}</p>
                                     </div>
+                                </div>
+
+                                <div className='flex flex-wrap justify-center' title="Catégories>">
+                                    { game.category.map( ( {category} ) => {
+                                        return (
+                                            <div className='mt-1 bg-grey-lite margin-left-s margin-right-s rounded inline-flex padding-litle'>
+                                                <p>{value_to_category(category)}</p>
+                                            </div>
+                                        )
+                                    })}
+
                                 </div>
 
                                 <p className='whitespace-newline'>

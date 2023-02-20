@@ -47,7 +47,7 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
         build_query = build_query\
             .filter(Boardgame.name.like("%{}%".format(name)))
 
-    if category_str is not None:
+    if category_str is not None and category_str != '':
         for category_val in map(lambda value: CategoryValue( int(value) ).name, category_str.split('/')):
             build_query = build_query.filter(Boardgame.category.any(category=category_val))
 

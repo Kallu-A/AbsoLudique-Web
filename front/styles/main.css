@@ -414,6 +414,7 @@ video {
 .margin {
     margin: 20px;
 }
+
 .padding {
     padding: 20px;
 }
@@ -533,6 +534,10 @@ video {
     font-size: 1.4rem;
     line-height: 1.4rem;
 }
+.text-small {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+}
 .text-sm {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -591,6 +596,9 @@ video {
     height: fit-content;
     min-height: 300px;
 }
+.mt-1 {
+    margin-top: 0.25rem;
+}
 .mt-2 {
     margin-top: 0.5rem;
 }
@@ -646,6 +654,9 @@ video {
 }
 .flex-games {
         justify-content: center;
+}
+.flex-column {
+    flex-flow: column;
 }
 .button-style {
     background-color: rgb(74 82 90);
@@ -771,6 +782,9 @@ video {
 }
 .margin-left-s {
     margin-left: 5px;
+}
+.margin-right-s {
+    margin-right: 5px;
 }
 .margin-left-xl {
     margin-left: 10px;
