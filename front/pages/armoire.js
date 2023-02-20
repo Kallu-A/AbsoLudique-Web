@@ -3,7 +3,7 @@ import Game from "../components/game";
 import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
 
-let PAGE_SIZE = 3
+let PAGE_SIZE = 30
 
 export default function armoire() {
     const [player, setPlayer] = useState();
@@ -83,6 +83,7 @@ export default function armoire() {
             </div>
 
             <div className='scrollable-vertical decal-vertical-bar'>
+
                 <div className='flex flex-wrap padding flex-games'>
                     { games && games.map( (game) => {
                         return (
