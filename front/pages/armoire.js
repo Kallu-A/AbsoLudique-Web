@@ -2,6 +2,7 @@ import {fetcher} from "../api";
 import Game from "../components/game";
 import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
+import ModalGame from "../components/modal_game";
 
 let PAGE_SIZE = 30
 
@@ -10,6 +11,8 @@ export default function armoire() {
     const [difficulty, setDifficulty] = useState();
     const [duration, setDuration] = useState();
     const [name, setName] = useState('');
+    const [show, setShow] = useState(false);
+    const [data_game, setDataGame] = useState(null);
 
     const {
         data,
@@ -37,6 +40,8 @@ export default function armoire() {
 
     return (
         <>
+            <ModalGame game={data_game} isShow={show} setShow={setShow}/>
+
             <div className="vertical-bar bg-grey-litle-plain padding-bar">
                 <h1 className='text-xl center-text margin-title title-color'>Filtre</h1>
                 <hr className=''></hr>
@@ -44,7 +49,7 @@ export default function armoire() {
                 <input className='input-player margin-top-xs'
                         value={player}
                         onChange={(e) => setPlayer(e.target.value)}
-                /> Joueurs
+                /> <span>Joueurs</span>
 
 
                 <p className='margin-top-xs'>Difficulté</p>
@@ -63,7 +68,7 @@ export default function armoire() {
                 <input className='input-duration margin-top-xs'
                         value={duration}
                         onChange={(e) => setDuration(e.target.value)}
-                /> Minutes
+                /> <span>Minutes</span>
 
                 <p className='margin-top-xs'>Nom du jeu</p>
                 <input className='input-name'
@@ -87,7 +92,14 @@ export default function armoire() {
                 <div className='flex flex-wrap padding flex-games'>
                     { games && games.map( (game) => {
                         return (
-                            <Game key={game.idBoardgame} game={game}/>
+                            <div className='pickable'
+                                key={game.idBoardgame}
+                                onClick={() => {
+                                setDataGame(game)
+                                setShow(true)
+                            } }>
+                               <Game key={game.idBoardgame} game={game}/>
+                            </div>
                         )
                     })}
                 </div>

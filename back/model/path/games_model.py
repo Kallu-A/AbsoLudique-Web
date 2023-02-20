@@ -2,6 +2,12 @@ from model.database.entity.boardgame import Boardgame, Difficulty
 from model.database.schema.boardgame_schema import BoardgameSchema
 
 
+# game with a id
+def game_id(id_game: int):
+    boardgame_schema = BoardgameSchema()
+    return boardgame_schema.dump(Boardgame.query.filter(Boardgame.idBoardgame == id_game).first())
+
+
 # basic pagination without filter
 def games_model(cursor: int, limit: int):
     boards: list = Boardgame.query.filter(Boardgame.idBoardgame >= cursor)\
