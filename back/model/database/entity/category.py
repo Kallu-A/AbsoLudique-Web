@@ -11,7 +11,6 @@ class CategoryValue(enum.Enum):
     deckbuilding = 3
     cooperative = 4
     betrayal = 5
-    roleplay = 6
 
 
 # Category of board games
