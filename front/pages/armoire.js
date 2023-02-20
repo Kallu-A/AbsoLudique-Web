@@ -3,12 +3,13 @@ import Game from "../components/game";
 import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
 
-let PAGE_SIZE = 30
+let PAGE_SIZE = 3
 
 export default function armoire() {
     const [player, setPlayer] = useState();
     const [difficulty, setDifficulty] = useState();
     const [duration, setDuration] = useState();
+    const [name, setName] = useState('');
 
     const {
         data,
@@ -22,6 +23,7 @@ export default function armoire() {
             + ( (player !== '') ? '&players=' + player : '')
             + ( (difficulty !== '') ? '&difficulty=' + difficulty : '')
             + ( (duration !== '') ? '&duration=' + duration : '')
+            + ( (name !== '') ? '&name=' + name : '')
         ,
         fetcher
     );
@@ -63,10 +65,17 @@ export default function armoire() {
                         onChange={(e) => setDuration(e.target.value)}
                 /> Minutes
 
+                <p className='margin-top-xs'>Nom du jeu</p>
+                <input className='input-name'
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                />
+
                 <button className='button-style button-smaller margin-top-xs' onClick={() => {
                     setDuration('')
                     setPlayer('')
                     setDifficulty('')
+                    setName('')
                 }
                 }>
                     Réinitialiser
@@ -84,7 +93,7 @@ export default function armoire() {
 
                 <div className='center-text padding'>
                     { games && !isReachingEnd && <>
-                            <button className='button-style button-larger center-button margin-bottom-xs'
+                            <button className='button-style button-larger center-button'
                                 disabled={isLoadingMore || isReachingEnd}
                                 onClick={() => setSize(size + 1)}
                             >

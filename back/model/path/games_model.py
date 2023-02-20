@@ -15,7 +15,8 @@ def games_model(cursor: int, limit: int):
 
 
 # pagination with filter
-def games_filter_model(cursor: int, limit: int, players: int, difficulty: int, duration: int, variation: float):
+def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
+                       duration: int, variation: float, name: str):
 
     min_players_bool = True if players is None else Boardgame.minPlayers <= players
     max_players_bool = True if players is None else Boardgame.maxPlayers >= players
@@ -23,13 +24,15 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int, d
     variation = 0.2 if variation is None else variation
     min_duration_bool = True if duration is None else duration - duration * variation <= Boardgame.duration
     max_duration_bool = True if duration is None else duration + duration * variation >= Boardgame.duration
+    name_bool = True if name is None else Boardgame.name.like("%{}%".format(name))
 
-    boards: list = Boardgame.query\
-        .filter(min_players_bool) \
-        .filter(max_players_bool) \
+    boards: list = Boardgame.query \
+        .filter(min_players_bool)\
+        .filter(max_players_bool)\
         .filter(difficulty_bool)\
         .filter(min_duration_bool)\
         .filter(max_duration_bool)\
+        .filter(name_bool)\
         .all()
     boardgame_schema = BoardgameSchema()
 
