@@ -3,7 +3,7 @@ import Game from "../components/game";
 import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
 
-let PAGE_SIZE = 4
+let PAGE_SIZE = 30
 
 export default function armoire() {
     const [player, setPlayer] = useState();
@@ -84,7 +84,7 @@ export default function armoire() {
 
                 <div className='center-text padding'>
                     { games && !isReachingEnd && <>
-                            <button className='button-style button-larger center-button'
+                            <button className='button-style button-larger center-button margin-bottom-xs'
                                 disabled={isLoadingMore || isReachingEnd}
                                 onClick={() => setSize(size + 1)}
                             >
