@@ -1,6 +1,6 @@
 import json
 
-from flask import request
+from flask import request, Response
 
 from model.database.entity.boardgame import Boardgame, Difficulty
 from model.database.entity.category import CategoryValue
@@ -86,21 +86,34 @@ def post_game_model():
     duration = data.get('duration')
 
     if name is None:
-        return "name" + msg
+        return Response("name" + msg, status=412)
     if state is None:
-        return "state" + msg
+        return Response("state" + msg, status=412)
     if description is None:
-        return "description" + msg
+        return Response("description" + msg, status=412)
     if difficulty is None:
-        return "difficulty" + msg
+        return Response("difficulty" + msg, status=412)
     if min_players is None:
-        return "minPlayers" + msg
+        return Response("minPlayers" + msg, status=412)
     if max_players is None:
-        return "maxPlayers" + msg
+        return Response("maxPlayers" + msg, status=412)
     if duration is None:
-        return "duration" + msg
+        return Response("duration" + msg, status=412)
 
-    difficulty = Difficulty(difficulty)
+    difficulty = Difficulty(int(difficulty))
+
+    try:
+        min_players = int(min_players)
+    except (TypeError, ValueError):
+        return Response("minPlayers is not a integer", status=412)
+    try:
+        max_players = int(max_players)
+    except (TypeError, ValueError):
+        return Response("maxPlayers is not a integer", status=412)
+    try:
+        duration = int(duration)
+    except (TypeError, ValueError):
+        return Response("duration is not a integer", status=412)
 
     boardgame = Boardgame(name=name, state=state, description=description,
                           difficulty=difficulty, minPlayers=min_players, maxPlayers=max_players,
@@ -112,7 +125,7 @@ def post_game_model():
     boardgame.picture = boardgame.idBoardgame
     [success, msg] = upload_file(request, '', str(boardgame.idBoardgame))
     if not success:
-        return msg
+        return Response(msg, status=412)
 
     db.session.commit()
 

@@ -7,7 +7,7 @@ export default function Game({game}) {
         <>
             <div className='w-fit h-fit rounded-xl margin-litle shadow-el padding-small'>
                 <h1 className='text-xl center-text'>{game.name}</h1>
-                <img src= {`${BACK_PATH + "static/upload/" + game.picture}`}
+                <img src= {`${BACK_PATH + "static/" + ((game.picture !== '') ? 'upload/' + game.picture: 'default.png')}`}
                      alt={`${'image du jeu ' + game.name}`} className='img-game img-center padding-small'/>
 
                 <div className='flex justify-center' title="Nombre de joueurs">

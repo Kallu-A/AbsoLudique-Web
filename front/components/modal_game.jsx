@@ -56,7 +56,7 @@ export default function GameModal({game, isShow, setShow}) {
 
 
                             <div className="mt-2">
-                                <img src= {`${BACK_PATH + "static/upload/" + game.picture}`}
+                                <img src= {`${BACK_PATH + "static/" + ((game.picture !== '') ?  'upload/' + game.picture: 'default.png')}`}
                                     alt={`${'image du jeu ' + game.name}`} className='img-game-alone img-center padding-small'/>
 
                                 <div className='flex justify-center' title="Nombre de joueurs">
