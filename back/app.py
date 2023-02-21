@@ -23,7 +23,7 @@ def create_app(test=False):
     else:
         db_path = 'sqlite://' + database_path
 
-    size_limit_mo_upload = os.getenv('SIZE_UPLOAD_LIMIT_FILE')
+    size_limit_mo_upload = int(os.getenv('SIZE_UPLOAD_LIMIT_FILE'))
     upload_folder = os.getenv('UPLOAD_FOLDER')
     static = os.getenv('STATIC_FOLDER')
     secret_key = os.getenv('SECRET_KEY')
