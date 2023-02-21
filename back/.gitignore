@@ -326,4 +326,4 @@ $RECYCLE.BIN/
 # Add by project team
 ../.idea
 instance
-static/
+static/upload
