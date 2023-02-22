@@ -65,17 +65,17 @@ export default function cabinet() {
                     <input className='input-name input'
                             value={name}
                             onChange={(e) => setName(e.target.value)}
-                    />
+                    /><br></br>
 
                     <input className='input-player margin-top-xs'
                             value={player}
                             onChange={(e) => setPlayer(e.target.value)}
-                    /> <span>Joueurs</span>
+                    /> <span>Joueurs</span> <br></br>
 
                     <input className='input-duration margin-top-xs'
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
-                    /> <span>Minutes</span>
+                    /> <span>Minutes</span> <br></br>
 
                     <p className='margin-top-xs'>Difficulté</p>
                     <select

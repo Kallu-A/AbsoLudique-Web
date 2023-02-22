@@ -652,8 +652,14 @@ video {
         width: 66.666667%;
     }
 }
+.vertical-bar {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    padding: 1em;
+}
 @media (min-width: 1024px) {
-
     .lg\:ml-auto {
         margin-left: auto;
     }
@@ -777,13 +783,7 @@ video {
     padding-bottom: 20px;
 }
 .decal-vertical-bar {
-    margin-left: 150px;
-}
-.vertical-bar {
-  width: 150px;
-  height: 100vh;
-  position: fixed;
-  left: 0;
+    margin-left: 200px;
 }
 .scrollable-vertical-filter {
     overflow: auto;
@@ -817,6 +817,13 @@ video {
         text-align: center;
 }
 @media (max-width: 580px) {
+    .vertical-bar {
+        padding: 0;
+        width: 175px;
+    }
+    .decal-vertical-bar {
+        margin-left: 175px;
+    }
     .flex-games {
         justify-content: center;
     }
