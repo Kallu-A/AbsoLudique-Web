@@ -3,7 +3,7 @@ from logging.config import dictConfig
 from flask import current_app
 from werkzeug.local import LocalProxy
 
-logger = LocalProxy(lambda: current_app.logger)
+LOGGER = LocalProxy(lambda: current_app.logger)
 
 
 def logger_config():

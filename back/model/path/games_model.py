@@ -2,6 +2,7 @@ import json
 
 from flask import request, Response
 
+import logger
 from model.database.entity.boardgame import Boardgame, Difficulty
 from model.database.entity.category import CategoryValue
 from model.database.schema.boardgame_schema import BoardgameSchema
@@ -10,9 +11,13 @@ from setup_sql import db
 
 
 # game with a id
-def game_id(id_game: int) -> list:
+def game_id(id_game: int) -> list or Response:
     boardgame_schema = BoardgameSchema()
-    return boardgame_schema.dump(Boardgame.query.filter(Boardgame.idBoardgame == id_game).first())
+    boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
+    if boardgame is None:
+        logger.LOGGER.warning('Boardgame don\' exist id:%i - 404', id_game)
+        return Response("Boardgame with id:" + str(id_game) + " doesn't exist", status=404)
+    return boardgame_schema.dump(boardgame)
 
 
 # basic pagination without filter
@@ -73,14 +78,18 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
 
 # post a game in database
 def post_game_model():
-    data = json.loads(request.form['data'])
+    try:
+        data = json.loads(request.form['data'])
+    except json.decoder.JSONDecodeError:
+        logger.LOGGER.warning('Json invalid - 412')
+        return Response("Json invalid", status=412)
 
     msg = " parameter not found"
 
     name = data.get('name')
     state = data.get('state')
     description = data.get('description')
-    difficulty = data.get('difficulty')
+    difficulty_value = data.get('difficulty')
     min_players = data.get('minPlayers')
     max_players = data.get('maxPlayers')
     duration = data.get('duration')
@@ -91,7 +100,7 @@ def post_game_model():
         return Response("state" + msg, status=412)
     if description is None:
         return Response("description" + msg, status=412)
-    if difficulty is None:
+    if difficulty_value is None:
         return Response("difficulty" + msg, status=412)
     if min_players is None:
         return Response("minPlayers" + msg, status=412)
@@ -100,19 +109,26 @@ def post_game_model():
     if duration is None:
         return Response("duration" + msg, status=412)
 
-    difficulty = Difficulty(int(difficulty))
+    try:
+        difficulty = Difficulty(int(difficulty_value))
+    except ValueError:
+        logger.LOGGER.warning('difficulty ' + str(difficulty_value) + ' is not a valid difficulty - 406')
+        return Response('difficulty ' + str(difficulty_value) + ' is not a valid difficulty', status=406)
 
     try:
         min_players = int(min_players)
     except (TypeError, ValueError):
+        logger.LOGGER.warning('minPlayers is not a integer - 412')
         return Response("minPlayers is not a integer", status=412)
     try:
         max_players = int(max_players)
     except (TypeError, ValueError):
+        logger.LOGGER.warning('maxPlayers is not a integer - 412')
         return Response("maxPlayers is not a integer", status=412)
     try:
         duration = int(duration)
     except (TypeError, ValueError):
+        logger.LOGGER.warning('duration is not a integer - 412')
         return Response("duration is not a integer", status=412)
 
     boardgame = Boardgame(name=name, state=state, description=description,
@@ -121,12 +137,14 @@ def post_game_model():
 
     db.session.add(boardgame)
     db.session.commit()
-
+    logger.LOGGER.info('save of the game done - 200 ')
     boardgame.picture = boardgame.idBoardgame
     [success, msg] = upload_file(request, '', str(boardgame.idBoardgame))
     if not success:
+        logger.LOGGER.warning('unable to upload the picture - 200 ')
         return Response(msg, status=412)
 
     db.session.commit()
+    logger.LOGGER.info('upload of the picture done - 200 ')
 
     return str(boardgame.idBoardgame)
