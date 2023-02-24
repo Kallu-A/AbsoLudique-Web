@@ -8,6 +8,7 @@ ALLOWED_EXTENSIONS = os.getenv('ALLOWED_EXTENSIONS')
 UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 
 
+# upload a file if is in the allowed_file()
 def upload_file(request, path, filename_stored) -> [bool, str] or bool:
     if 'file' not in request.files:
         return [False, "file not found"]
@@ -34,6 +35,7 @@ def file_exist(path, filename) -> bool:
     return os.path.isfile(os.path.join(path, filename))
 
 
+# Return if the extension of the file is in ALLOWED_EXTENSIONS
 def allowed_file(filename) -> bool:
     return '.' in filename \
         and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

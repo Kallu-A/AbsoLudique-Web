@@ -10,7 +10,8 @@ from model.database.upload import upload_file
 from setup_sql import db
 
 
-# game with a id
+# return a game with the id
+# or else return response 404
 def game_id(id_game: int) -> list or Response:
     boardgame_schema = BoardgameSchema()
     boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
@@ -77,6 +78,8 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
 
 
 # post a game in database
+# make sur all fields are in the json in request.form['data']
+# return Response if something goes wrong
 def post_game_model():
     try:
         data = json.loads(request.form['data'])

@@ -30,11 +30,14 @@ def get_games() -> list:
     return games_filter_model(cursor, limit, players, difficulty, duration, variation, name, category)
 
 
+# get only one game by id
 @app.get("/game/<int:id_game>")
 def get_game_id(id_game: int) -> list:
     return game_id(id_game)
 
 
+# post a game with value in
+# request.form as data & file
 @app.post("/game")
 def post_game():
     return post_game_model()
