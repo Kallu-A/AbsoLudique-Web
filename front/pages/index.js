@@ -2,7 +2,7 @@ import Head from 'next/head';
 import cabinet from "../components/cabinet";
 
 export default function Home() {
-  return (
+    return (
     <div>
       <Head>
         <title>Abso'Ludique</title>
@@ -10,6 +10,6 @@ export default function Home() {
       </Head>
         {cabinet()}
     </div>
-  );
+    );
 }
 

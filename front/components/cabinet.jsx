@@ -15,13 +15,14 @@ export default function cabinet() {
     const [show, setShow] = useState(false);
     const [data_game, setDataGame] = useState(null);
 
-    const category_values = Array.from(valueToCategory.values())
-    const category_key = Array.from(valueToCategory.keys())
+    let category_values = Array.from(valueToCategory.values());
+    let category_key = Array.from(valueToCategory.keys());
 
     let categories = []
     for (let cat in category_values) {
         categories.push(useState(false))
     }
+
 
     const {
         data,
@@ -54,7 +55,7 @@ export default function cabinet() {
 
     return (
         <>
-            <ModalGame game={data_game} isShow={show} setShow={setShow}/>
+            <ModalGame game={data_game} key={1} isShow={show} setShow={setShow}/>
 
             <div className="vertical-bar bg-grey-litle-plain">
                 <div className='scrollable-vertical-filter padding-bar'>
@@ -126,7 +127,6 @@ export default function cabinet() {
                         setName('')
                         for (let i = 0; i < categories.length; i++) {
                             categories[i][1](false)
-                            console.log('issue' + categories[i][0])
                         }
                         mutate()
                     }

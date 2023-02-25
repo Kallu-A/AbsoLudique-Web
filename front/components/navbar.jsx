@@ -28,7 +28,7 @@ export default function Navbar() {
         <Link href='/' className='inline-flex items-center p-2 mr-4 '>
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
-            <span className='text-xl text-white font-bold uppercase tracking-wide'>
+            <span className='text-xl text-white font-bold uppercase tracking-wide select'>
               Abso'Ludique
             </span>
         </Link>

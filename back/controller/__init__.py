@@ -10,3 +10,4 @@ app = Blueprint('controller', __name__)
 # please ignore the 'PEP 8: E402' warning ( create an import partial if you move them to the top file )
 from .games import *
 from .category import *
+from .dict import *

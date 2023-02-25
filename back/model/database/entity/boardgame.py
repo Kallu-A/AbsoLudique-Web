@@ -1,16 +1,7 @@
-import enum
-
 from sqlalchemy import Enum
 
+from model.database.enum.Difficulty import Difficulty
 from setup_sql import db
-
-
-class Difficulty(enum.Enum):
-
-    easy = 1
-    medium = 2
-    hard = 3
-    very_hard = 4
 
 
 class Boardgame(db.Model):

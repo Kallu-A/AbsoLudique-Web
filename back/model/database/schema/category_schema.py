@@ -1,7 +1,8 @@
 from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from marshmallow_enum import EnumField
 
-from model.database.entity.category import Category, CategoryValue
+from model.database.entity.category import Category
+from model.database.enum import CategoryValue
 
 
 class CategorySchema(SQLAlchemySchema):

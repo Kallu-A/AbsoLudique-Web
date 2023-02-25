@@ -1,16 +1,7 @@
-import enum
-
 from sqlalchemy import Enum
 
+from model.database.enum.CategoryValue import CategoryValue
 from setup_sql import db
-
-
-class CategoryValue(enum.Enum):
-    card = 1
-    board = 2
-    deckbuilding = 3
-    cooperative = 4
-    betrayal = 5
 
 
 # Category of board games

@@ -2,7 +2,8 @@ from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from marshmallow_enum import EnumField
 from marshmallow import fields
 
-from model.database.entity.boardgame import Boardgame, Difficulty
+from model.database.entity.boardgame import Boardgame
+from model.database.enum import Difficulty
 from model.database.schema.category_schema import CategorySchema
 
 

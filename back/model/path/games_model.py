@@ -3,8 +3,9 @@ import json
 from flask import request, Response
 
 import logger
-from model.database.entity.boardgame import Boardgame, Difficulty
-from model.database.entity.category import CategoryValue
+from model.database.entity.boardgame import Boardgame
+from model.database.enum.CategoryValue import CategoryValue
+from model.database.enum.Difficulty import Difficulty
 from model.database.schema.boardgame_schema import BoardgameSchema
 from model.database.upload import upload_file
 from setup_sql import db
@@ -60,8 +61,12 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
             .filter(Boardgame.name.like("%{}%".format(name)))
 
     if category_str is not None and category_str != '':
-        for category_val in map(lambda value: CategoryValue( int(value) ).name, category_str.split('/')):
-            build_query = build_query.filter(Boardgame.category.any(category=category_val))
+        if category_str.find('/') != -1:
+            for category_val in map(lambda value: CategoryValue(int(value)), category_str.split('/')):
+                build_query = build_query.filter(Boardgame.category.any(category=category_val))
+        else:
+            print(category_str)
+            build_query = build_query.filter(Boardgame.category.any(category=CategoryValue(int(category_str))))
 
     boards = build_query\
         .all()
