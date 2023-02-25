@@ -1,4 +1,5 @@
 from flask import request
+from flask_login import login_required
 
 from controller import app
 from model.path.games_model import games_model, games_filter_model, game_id, post_game_model
@@ -8,6 +9,7 @@ from model.path.games_model import games_model, games_filter_model, game_id, pos
 # filter args are:
 # - players, difficulty, duration, variation, name
 @app.get("/games")
+@login_required
 def get_games() -> list:
     args = request.args
     cursor = args.get('cursor', type=int)
@@ -32,6 +34,7 @@ def get_games() -> list:
 
 # get only one game by id
 @app.get("/game/<int:id_game>")
+@login_required
 def get_game_id(id_game: int) -> list:
     return game_id(id_game)
 
@@ -39,5 +42,6 @@ def get_game_id(id_game: int) -> list:
 # post a game with value in
 # request.form as data & file
 @app.post("/game")
+@login_required
 def post_game():
     return post_game_model()

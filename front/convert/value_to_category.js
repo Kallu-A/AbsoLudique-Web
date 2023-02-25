@@ -1,5 +1,3 @@
-import {fetcher} from "../api";
-
 export const valueToCategory = new Map()
 valueToCategory.set(1, 'carte')
 valueToCategory.set(2, 'deck building')

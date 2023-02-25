@@ -4,7 +4,30 @@
 
 Site web du club Abso'Ludique (jeux de société) à TELECOM Nancy
 
-## Back-end
+## Configuration OAUTH2 
+[Configuration du compte Google](https://support.google.com/googleapi/answer/6158849?hl=en)
+
+[Tableau de bord API](https://console.cloud.google.com/apis/dashboard)
+- **Identifiants** création d'un nouveau projet 
+- **Écran de consentement OAuth**
+  - user type = interne
+  - nom de l'application = Abso'Ludique
+  - Adresse email d'assistance = *.net
+  - Logo de l'application = '.res_extern/logo.png'
+  - l'uri de redirection `https://localhost:5000/login/callback`
+  - Les domaines nécessaires si hébergés
+
+### Ajout des secrets
+faire un fichier `.secret` dans le répertoire `back` le remplir de cette manière
+en remplacant avec les codes fournit par Google
+```shell
+GOOGLE_CLIENT_ID='ID client'
+GOOGLE_CLIENT_SECRET='Secret client'
+GOOGLE_DISCOVERY_URL='https://accounts.google.com/.well-known/openid-configuration'
+```
+
+
+## Back-end - dev
 ### Installation
 Dans le répertoire back du projet, veuillez exécuter les commandes suivantes pour installer les dépendances :
 ```bash
@@ -36,7 +59,7 @@ source venv/bin/activate
 pip freeze > requirements.txt
 ```
 
-## Front-End
+## Front-End - dev
 
 ### Installation
 Dans le répertoire front du projet, veuillez exécuter les commandes suivantes pour installer les dépendances :

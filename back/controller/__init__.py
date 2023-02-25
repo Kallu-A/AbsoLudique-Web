@@ -11,3 +11,4 @@ app = Blueprint('controller', __name__)
 from .games import *
 from .category import *
 from .dict import *
+from .auth import *

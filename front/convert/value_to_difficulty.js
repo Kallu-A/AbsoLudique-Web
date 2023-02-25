@@ -1,5 +1,3 @@
-import {fetcher} from "../api";
-
 export const valueToDifficulty = new Map()
 valueToDifficulty.set(1, 'facile')
 valueToDifficulty.set(2, 'moyen')

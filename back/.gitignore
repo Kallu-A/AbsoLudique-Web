@@ -327,3 +327,4 @@ $RECYCLE.BIN/
 ../.idea
 instance
 static/upload
+.secret

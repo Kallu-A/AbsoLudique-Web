@@ -1,11 +1,15 @@
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 from flask import Flask
 from flask_cors import CORS
+from flask_login import LoginManager
+from oauthlib.oauth2 import WebApplicationClient
 
 import controller
 from logger import logger_config
+from model.database.entity.user import User
 from setup_sql import database_path_test, database_path, db
 
 # To find the root of the project everywhere
@@ -14,6 +18,12 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # do not remove this import allows SQLAlchemy to find the table
 from model.database.entity import boardgame, category
 
+# secret Google
+load_dotenv(Path('.secret'))
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+GOOGLE_DISCOVERY_URL = os.getenv('GOOGLE_DISCOVERY_URL')
+client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
 def create_app(test=False):
     load_dotenv()
@@ -41,12 +51,24 @@ def create_app(test=False):
     logger_config()
     app_intern.register_blueprint(controller.app)
 
+    # login
+    login_manager = LoginManager()
+    login_manager.init_app(app_intern)
+
+    # database init
     db.init_app(app_intern)
     with app_intern.app_context():
         db.create_all()
 
-    app_intern.logger.info("Start of the server")
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(user_id)
 
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return "You must be logged in to access this content.", 403
+
+    app_intern.logger.info("Start of the server")
     CORS(app_intern, origins=front_uri)
     return app_intern
 
@@ -58,4 +80,4 @@ if __name__ == '__main__':
     PORT = os.getenv('PORT')
 
     app = create_app()
-    app.run(port=PORT, host=HOST)
+    app.run(port=PORT, host=HOST, ssl_context="adhoc")
