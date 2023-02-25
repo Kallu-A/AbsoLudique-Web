@@ -1,17 +1,12 @@
 import '../styles/main.css';
 import Layout from "../components/layout";
-import {setupValueToDifficulty, valueToDifficulty} from "../convert/value_to_difficulty";
-import {setup_valueToCategory, valueToCategory} from "../convert/value_to_category";
+import React from "react";
 
-function MyApp({ Component, pageProps }) {
-        setupValueToDifficulty(valueToDifficulty)
-        setup_valueToCategory(valueToCategory)
 
+export default function MyApp({ Component, pageProps }) {
     return (
         <Layout>
             <Component {...pageProps} />
         </Layout>
     );
 }
-
-export default MyApp;

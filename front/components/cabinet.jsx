@@ -4,6 +4,7 @@ import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
 import ModalGame from "./modal_game";
 import {valueToCategory} from "../convert/value_to_category";
+import {valueToDifficulty} from "../convert/value_to_difficulty";
 
 let PAGE_SIZE = 30
 
@@ -11,6 +12,7 @@ export default function cabinet() {
     const [player, setPlayer] = useState();
     const [difficulty, setDifficulty] = useState();
     const [duration, setDuration] = useState();
+    const [key, setKey] = useState(-1);
     const [name, setName] = useState('');
     const [show, setShow] = useState(false);
     const [data_game, setDataGame] = useState(null);
@@ -55,7 +57,7 @@ export default function cabinet() {
 
     return (
         <>
-            <ModalGame game={data_game} key={1} isShow={show} setShow={setShow}/>
+            <ModalGame game={data_game} key={key} isShow={show} setShow={setShow}/>
 
             <div className="vertical-bar bg-grey-litle-plain">
                 <div className='scrollable-vertical-filter padding-bar'>
@@ -85,10 +87,10 @@ export default function cabinet() {
                             className='input-difficulty'>
 
                         <option value='' label="aucun choix"></option>
-                        <option value='1' label="facile"></option>
-                        <option value='2' label="moyen"></option>
-                        <option value='3' label="difficile"></option>
-                        <option value='4' label="très difficile"></option>
+                        { Array.from(valueToDifficulty).map((value) => {
+                            return <option key={value[0]} value={value[0]} label={value[1]}></option>
+                        })}
+
                     </select>
 
                     <hr className='margin-top-xs'></hr>
@@ -144,8 +146,9 @@ export default function cabinet() {
                             <div className='pickable'
                                 key={game.idBoardgame}
                                 onClick={() => {
-                                setDataGame(game)
-                                setShow(true)
+                                    setDataGame(game)
+                                    setKey(game.idBoardgame)
+                                    setShow(true)
                             } }>
                                <Game key={game.idBoardgame} game={game}/>
                             </div>
