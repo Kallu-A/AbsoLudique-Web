@@ -1,40 +1,13 @@
 import Image from "next/image";
-import {BACK_PATH, fetcher} from "../api";
-import {redirect} from "next/navigation";
+import {fetcher_auth} from "../api";
 
 export default function Login() {
 
     function login() {
-      /*  fetch( BACK_PATH + 'login', {
-            redirect: 'follow',
-            mode: 'no-cors',
-            headers: {
-            'Access-Control-Allow-Origin':BACK_PATH,
-            'Access-Control-Allow-Credentials':true,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-        })
-            .then(r => {
-                console.log(r)
-                if(r.redirected){
-                    const redirectedToUrl = r.url
-                    redirect(redirectedToUrl)
-                }
-            })*/
-        var requestOptions = {
-    method: 'GET',
-    redirect: 'follow',
-            headers: {
-            'Access-Control-Allow-Origin':'*',
-            'Access-Control-Allow-Credentials':true,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    };
-
-fetch("https://localhost:5000/login", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+        fetcher_auth('login').then(response =>
+           response.body.getReader().read()
+               .then( uri => window.location.assign( new TextDecoder("utf-8").decode(uri.value) )
+               ))
     }
 
     return (
