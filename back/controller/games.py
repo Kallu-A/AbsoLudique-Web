@@ -1,4 +1,5 @@
 from flask import request
+from flask_cors import cross_origin
 from flask_login import login_required
 
 from controller import app
@@ -10,6 +11,7 @@ from model.path.games_model import games_model, games_filter_model, game_id, pos
 # - players, difficulty, duration, variation, name
 @app.get("/games")
 #@login_required
+@cross_origin()
 def get_games() -> list:
     args = request.args
     cursor = args.get('cursor', type=int)

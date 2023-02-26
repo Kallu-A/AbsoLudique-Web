@@ -31,6 +31,11 @@ Il peut être nécessaire de changer les noms de domaines lors du passage en pro
 
 ## Certificats
 [Générer certificat pour development uniquement](https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8)
+Ajouter les certicats dans 
+- `front/cert/abso.pem`
+- `front/cert/abso.key`
+- `back/cert/abso.pem`
+- `back/cert/abso.key`
 
 ---
 

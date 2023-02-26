@@ -90,4 +90,4 @@ if __name__ == '__main__':
     PORT = os.getenv('PORT')
 
     app = create_app()
-    app.run(port=PORT, host=HOST)
+    app.run(port=PORT, host=HOST, ssl_context=('cert/abso.pem', 'cert/abso.key'))

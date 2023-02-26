@@ -328,3 +328,4 @@ $RECYCLE.BIN/
 instance
 static/upload
 .secret
+cert/*
