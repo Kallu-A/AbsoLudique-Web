@@ -1,10 +1,13 @@
+import datetime
 import json
+
+import jwt
 import requests
+from flask import request
+from flask_login import logout_user
 
-from flask import redirect, request
-from flask_login import logout_user, login_user
-
-from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DURATION_TOKEN
+from controller import app
 from model.database.entity.user import User
 from setup_sql import db
 
@@ -67,9 +70,14 @@ def login_callback_model():
         db.session.add(user)
         db.session.commit()
 
-    login_user(user)
+    token = jwt.encode({'id': user.idUser,
+                        'email': user.email,
+                        'firstname': user.firstname,
+                        'lastname': user.lastname,
+                        'expiration': datetime.datetime.utcnow() + datetime.timedelta(hours=DURATION_TOKEN)},
+                       app.config['SECRET_KEY'], "HS256")
 
-    return "Successfully login", 200
+    return token, 200
 
 
 def logout_model():
