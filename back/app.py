@@ -38,7 +38,8 @@ def create_app(test=False):
     upload_folder = os.getenv('UPLOAD_FOLDER')
     static = os.getenv('STATIC_FOLDER')
     secret_key = os.getenv('SECRET_KEY')
-    front_uri = os.getenv('FRONT_URI')
+    origins_dev = os.getenv('ORIGINS_DEV')
+    origins_oauth = os.getenv('ORIGINS_OAUTH')
     cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
 
     # config the app to make app.py the start point but the actual program is one directory lower
@@ -53,7 +54,7 @@ def create_app(test=False):
     logger_config()
     app_intern.register_blueprint(controller.app)
 
-    CORS(app_intern, origins=r'*')
+    CORS(app_intern, origins=[origins_dev, origins_oauth])
 
     # login
     login_manager = LoginManager()
@@ -77,7 +78,7 @@ def create_app(test=False):
                            "'\n- CORS_HEADERS = '" + str(cors_header) +
                            "'\n- UPLOAD_FOLDER = '" + upload_folder +
                            "'\n- MAX_CONTENT_LENGTH = '" + str(size_limit_mo_upload) + "mo" +
-                           "'\n- CORS = '" + front_uri + "'"
+                           "'\n- CORS = '" + origins_dev + ", " + origins_oauth + "'"
                            )
     return app_intern
 
