@@ -10,7 +10,7 @@ from model.path.games_model import games_model, games_filter_model, game_id, pos
 # filter args are:
 # - players, difficulty, duration, variation, name
 @app.get("/games")
-#@login_required
+@login_required
 @cross_origin()
 def get_games() -> list:
     args = request.args

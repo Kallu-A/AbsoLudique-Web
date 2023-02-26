@@ -25,7 +25,7 @@ def login_model():
         redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
     )
-    return redirect(request_uri)
+    return redirect(request_uri, 307)
 
 
 def login_callback_model():
@@ -57,7 +57,6 @@ def login_callback_model():
     # The user authenticated with Google, authorized our
     # app, and now we've verified their email through Google!
     if userinfo_response.json().get("email_verified"):
-        print(userinfo_response.json())
         unique_id = userinfo_response.json()["sub"]
         users_email = userinfo_response.json()["email"]
         users_firstname = userinfo_response.json()["given_name"]
@@ -71,7 +70,6 @@ def login_callback_model():
         db.session.add(user)
         db.session.commit()
 
-    print(user)
     login_user(user)
 
     return "Successfully login", 200

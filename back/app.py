@@ -40,7 +40,7 @@ def create_app(test=False):
     secret_key = os.getenv('SECRET_KEY')
     origins_dev = os.getenv('ORIGINS_DEV')
     origins_oauth = os.getenv('ORIGINS_OAUTH')
-    cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
+    cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 
     # config the app to make app.py the start point but the actual program is one directory lower
     app_intern = Flask(__name__,
@@ -55,6 +55,7 @@ def create_app(test=False):
     app_intern.register_blueprint(controller.app)
 
     CORS(app_intern, origins=[origins_dev, origins_oauth])
+    #CORS(app_intern, origins='*')
 
     # login
     login_manager = LoginManager()

@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {BACK_PATH} from "../api";
+import {BACK_PATH, fetcher_post} from "../api";
 
 export default function add_game() {
 
@@ -34,10 +34,7 @@ export default function add_game() {
         formdata.append("file",  input.files[0])
 
         try {
-            const res = await fetch(BACK_PATH + 'game', {
-                method: 'post',
-                body: formdata
-            })
+            const res = await fetcher_post('game', formdata)
 
             if (res.status === 200) {
                 setName('')

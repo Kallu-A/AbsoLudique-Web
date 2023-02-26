@@ -9,10 +9,9 @@
     "not op_mini all"
   ],
   "scripts": {
-    "dev": "next dev",
-    "https": "node server.js",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node server.js",
+    "build": "node server.js build",
+    "start": "node server.js start",
     "build:css": "postcss styles/tailwind.css -o styles/main.css",
     "build:watch": "postcss styles/tailwind.css -o styles/main.css --watch",
     "prod:build": "NODE_ENV=production yarn run build:css && yarn run build"
