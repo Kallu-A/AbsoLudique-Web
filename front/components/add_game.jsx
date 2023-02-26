@@ -63,16 +63,16 @@ export default function add_game() {
         }
 
     return (
-        <div className='centered-element shadow-el padding rounded-xl height-limited'>
-            <h1 className='text-xxl center-text margin-title title-color'>Ajout d'un jeu</h1>
-            <hr className='margin-bottom-xs'></hr>
+        <div className='centered-element shadow-el padding-20 rounded-0p75 height-limited-600'>
+            <h1 className='text-2 center-text margin-top-bottom-5 title-color'>Ajout d'un jeu</h1>
+            <hr className='margin-padding-bottom-20'></hr>
 
             <div className='scrollable-vertical-form'>
                 <form className='mt-4 w-fit-content max-w-add-game display-form'>
 
                 <div className="md:flex  md:items-center mb-6">
                     <div className="md:w-1/3">
-                        <label htmlFor="name" className='title-color text-s'>
+                        <label htmlFor="name" className='title-color text-1p4'>
                             Nom du jeu</label>
                     </div>
                     <div className="md:w-2/3">
@@ -83,7 +83,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                        <label htmlFor="state" className='title-color text-s'>
+                        <label htmlFor="state" className='title-color text-1p4'>
                             État du jeu</label>
                     </div>
                     <div className="md:w-2/3">
@@ -94,7 +94,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                         <label htmlFor="input" className='title-color text-s'>
+                         <label htmlFor="input" className='title-color text-1p4'>
                              Description</label>
                     </div>
                     <div className="md:w-2/3">
@@ -105,7 +105,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                        <label htmlFor="difficulty" className='title-color text-s'>
+                        <label htmlFor="difficulty" className='title-color text-1p4'>
                             Difficulté</label>
                     </div>
                     <div className="md:w-2/3">
@@ -123,7 +123,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                        <label htmlFor="minPlayers" className='title-color text-s'>
+                        <label htmlFor="minPlayers" className='title-color text-1p4'>
                             Joueur minimum</label>
                     </div>
                     <div className="md:w-2/3">
@@ -134,7 +134,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                       <label htmlFor="input" className='title-color text-s'>
+                       <label htmlFor="input" className='title-color text-1p4'>
                             Joueur maximum</label>
                     </div>
                     <div className="md:w-2/3">
@@ -145,7 +145,7 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                       <label htmlFor="duration" className='title-color text-s'>
+                       <label htmlFor="duration" className='title-color text-1p4'>
                            Durée</label>
                     </div>
                     <div className="md:w-2/3">
@@ -156,12 +156,12 @@ export default function add_game() {
 
                 <div className="md:flex md:items-center mb-6">
                     <div className="md:w-1/3">
-                       <label className="title-color text-s" htmlFor="user_avatar">
+                       <label className="title-color text-1p4" htmlFor="user_avatar">
                        Image du jeu</label>
                     </div>
                     <div className="md:w-2/3">
                       <input
-                            className="block rounded w-fit cursor-pointer border focus:outline-none focus:border-transparent rounded-lg"
+                            className="block rounded-0p25 w-fit cursor-pointer border focus:outline-none focus:border-transparent rounded-lg"
                             value={file} onChange={e => setFile(e.target.value)}
                             accept=".png,.jpg,.jpeg"
                             aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
@@ -170,7 +170,7 @@ export default function add_game() {
 
                     { name !== '' && state !== '' && description !== '' && difficulty !== '' && minPlayers !== ''
                         && maxPlayers !== '' && duration !== '' && file !== '' && <div className='center-text'>
-                        <button type="submit" className='button-style button-larger margin-top-xs' onClick={save}
+                        <button type="submit" className='button-style button-larger margin-top-20' onClick={save}
                         >Enregistrer</button>
                     </div>}
 

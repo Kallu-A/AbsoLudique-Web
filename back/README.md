@@ -1,3 +1,0 @@
-# Environnement
-- Python
-- Flask

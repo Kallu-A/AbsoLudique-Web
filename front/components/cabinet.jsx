@@ -61,26 +61,26 @@ export default function cabinet() {
 
             <div className="vertical-bar bg-grey-litle-plain">
                 <div className='scrollable-vertical-filter padding-bar'>
-                    <h1 className='text-xl center-text margin-title title-color'>Filtre</h1>
+                    <h1 className='text-1p6 center-text margin-top-bottom-5 title-color'>Filtre</h1>
                     <hr className=''></hr>
 
-                    <p className='margin-top-xs'>Nom du jeu</p>
+                    <p className='margin-top-20'>Nom du jeu</p>
                     <input className='input-name input'
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                     /><br></br>
 
-                    <input className='input-player margin-top-xs'
+                    <input className='input-player margin-top-20'
                             value={player}
                             onChange={(e) => setPlayer(e.target.value)}
                     /> <span>Joueurs</span> <br></br>
 
-                    <input className='input-duration margin-top-xs'
+                    <input className='input-duration margin-top-20'
                             value={duration}
                             onChange={(e) => setDuration(e.target.value)}
                     /> <span>Minutes</span> <br></br>
 
-                    <p className='margin-top-xs'>Difficulté</p>
+                    <p className='margin-top-20'>Difficulté</p>
                     <select
                            value={difficulty}
                            onChange={(e) => setDifficulty(e.target.value)}
@@ -93,10 +93,10 @@ export default function cabinet() {
 
                     </select>
 
-                    <hr className='margin-top-xs'></hr>
+                    <hr className='margin-top-20'></hr>
 
-                    <h1 className='margin-top-xs text-small center-text title-color'>Catégories</h1>
-                    <div className="flex flex-column margin-top-xs justify-center">
+                    <h1 className='margin-top-20 text-1p1 center-text title-color'>Catégories</h1>
+                    <div className="flex flex-column margin-top-20 justify-center">
 
                         { category_values.map( (value, index) => {
                             return (
@@ -112,7 +112,7 @@ export default function cabinet() {
                                         }}
                                         id="checkboxDefault"/>
                                     <label
-                                        className="inline-block pl-[0.15rem] margin-left-s hover:cursor-pointer"
+                                        className="inline-block pl-[0.15rem] margin-left-5 hover:cursor-pointer"
                                         htmlFor="checkboxDefault">
                                         {value}
                                     </label>
@@ -122,7 +122,7 @@ export default function cabinet() {
 
                     </div>
 
-                    <button className='button-style button-smaller margin-top-xs' onClick={() => {
+                    <button className='button-style button-smaller margin-top-20' onClick={() => {
                         setDuration('')
                         setPlayer('')
                         setDifficulty('')
@@ -138,9 +138,9 @@ export default function cabinet() {
                 </div>
             </div>
 
-            <div className='scrollable-vertical decal-vertical-bar'>
+            <div className='scrollable-vertical decal-vertical-bar-200'>
 
-                <div className='flex flex-wrap padding flex-games'>
+                <div className='flex flex-wrap padding-20 flex-games'>
                     { games && games.map( (game) => {
                         return (
                             <div className='pickable'
@@ -156,7 +156,7 @@ export default function cabinet() {
                     })}
                 </div>
 
-                <div className='center-text padding'>
+                <div className='center-text padding-20'>
                     { games && !isReachingEnd && <>
                             <button className='button-style button-larger center-button'
                                 disabled={isLoadingMore || isReachingEnd}

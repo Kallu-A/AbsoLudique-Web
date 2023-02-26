@@ -317,6 +317,10 @@ video {
     bottom: 0;
     left: 0;
 }
+.inset-backdrop-not-nav {
+    width: available;
+    height: 100em;
+}
 .inline-block {
     display: inline-block;
 }
@@ -420,32 +424,35 @@ video {
 .end-align {
     align-self: end;
 }
-.rounded {
+.rounded-0p25 {
     border-radius: 0.25rem;
 }
-.rounded-xl {
+.rounded-0p75 {
     border-radius: 0.75rem;
 }
-.rounded-md {
+.rounded-0p375 {
     border-radius: 0.375rem;
 }
 .margin {
     margin: 20px;
 }
 
-.padding {
+.padding-20 {
     padding: 20px;
+}
+.padding-35-60 {
+    padding: 35px 60px;
 }
 .pt-2 {
     padding-top: 0.5rem;
 }
-.margin-litle {
+.margin-10 {
     margin: 10px;
 }
-.padding-small {
+.padding-1 {
     padding: 1rem;
 }
-.padding-litle {
+.padding-0p4 {
     padding: 0.4rem;
 }
 .bg-white {
@@ -540,23 +547,23 @@ video {
     font-size: 1.125rem;
     line-height: 1.75rem;
 }
-.text-xl {
+.text-1p6 {
     font-size: 1.6rem;
     line-height: 1.7rem;
 }
-.text-xxl {
+.text-2 {
     font-size: 2rem;
     line-height: 2rem;
 }
-.text-s {
+.text-1p4 {
     font-size: 1.4rem;
     line-height: 1.4rem;
 }
-.text-small {
+.text-1p1 {
     font-size: 1.1rem;
     line-height: 1.1rem;
 }
-.text-sm {
+.text-1p6 {
     font-size: 1.6rem;
     line-height: 1.6rem;
 }
@@ -630,7 +637,7 @@ video {
 .mb-6 {
     margin-bottom: 1.5rem;
 }
-.margin-top-litle {
+.margin-top-5 {
     margin-top: 5px;
 }
 .shadow-el {
@@ -731,7 +738,7 @@ video {
 .border-transparent {
     border-color: transparent;
 }
-.margin-title {
+.margin-top-bottom-5 {
     margin-top: 5px;
     margin-bottom: 5px;
 }
@@ -750,10 +757,16 @@ video {
     --tw-text-opacity: 1;
     color: rgb(17 24 39 / var(--tw-text-opacity));
 }
-.margin-top-xs {
+.margin-top-20 {
     margin-top: 20px;
 }
-.spacing-vertical {
+.margin-top-35 {
+    margin-top: 35px;
+}
+.margin-top-50 {
+    margin-top: 50px;
+}
+.spacing-vertical-20 {
     height: 20px;
 }
 .input {
@@ -782,11 +795,11 @@ video {
     border-radius: 4px;
     text-align: center;
 }
-.margin-bottom-xs {
+.margin-padding-bottom-20 {
     margin-bottom: 20px;
     padding-bottom: 20px;
 }
-.decal-vertical-bar {
+.decal-vertical-bar-200 {
     margin-left: 200px;
 }
 .scrollable-vertical-filter {
@@ -825,7 +838,7 @@ video {
         padding: 0;
         width: 175px;
     }
-    .decal-vertical-bar {
+    .decal-vertical-bar-200 {
         margin-left: 175px;
     }
     .flex-games {
@@ -839,7 +852,7 @@ video {
 .whitespace-newline {
     white-space: pre-line;
 }
-.height-limited {
+.height-limited-600 {
     height: 600px;
 }
 .centered-element {
@@ -849,13 +862,13 @@ video {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.margin-left-s {
+.margin-left-5 {
     margin-left: 5px;
 }
-.margin-right-s {
+.margin-right-5 {
     margin-right: 5px;
 }
-.margin-left-xl {
+.margin-left-10 {
     margin-left: 10px;
 }
 .inline-div {
@@ -865,7 +878,7 @@ video {
 .inline-element {
   display: inline-block;
 }
-.text-xxl {
+.text-2 {
     font-size: 2em;
 }
 

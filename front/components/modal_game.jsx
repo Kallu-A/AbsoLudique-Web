@@ -57,18 +57,18 @@ export default function GameModal({game, isShow, setShow}) {
 
                             <div className="mt-2">
                                 <img src= {`${BACK_PATH + "static/" + ((game.picture !== '') ?  'upload/' + game.picture: 'default.png')}`}
-                                    alt={`${'image du jeu ' + game.name}`} className='img-game-alone img-center padding-small'/>
+                                    alt={`${'image du jeu ' + game.name}`} className='img-game-alone img-center padding-1'/>
 
                                 <div className='flex justify-center' title="Nombre de joueurs">
-                                    <div className='bg-grey-lite rounded inline-flex padding-litle'>
+                                    <div className='bg-grey-lite rounded-0p25 inline-flex padding-0p4'>
                                         <Image title="Nombre de joueurs" src="/players.png" alt="Nombre de joueurs" width="20" height="20"/>
-                                        <p className='margin-left-s'>{game.minPlayers}-{game.maxPlayers}</p>
+                                        <p className='margin-left-5'>{game.minPlayers}-{game.maxPlayers}</p>
                                     </div>
-                                    <div className='bg-grey-lite rounded inline-flex margin-left-xl padding-litle' title="Durée d'une partie">
+                                    <div className='bg-grey-lite rounded-0p25 inline-flex margin-left-10 padding-0p4' title="Durée d'une partie">
                                         <Image title="Durée d'une partie" src="/duration.png" alt="Durée d'une partie" width="20" height="20"/>
-                                        <p className='margin-left-s'>{game.duration} minutes</p>
+                                        <p className='margin-left-5'>{game.duration} minutes</p>
                                     </div>
-                                    <div title="Difficulté du jeu" className='bg-grey-lite rounded inline-flex margin-left-xl padding-litle'>
+                                    <div title="Difficulté du jeu" className='bg-grey-lite rounded-0p25 inline-flex margin-left-10 padding-0p4'>
                                         <p>{value_to_difficulty(game.difficulty)}</p>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@ export default function GameModal({game, isShow, setShow}) {
                                 <div className='flex flex-wrap justify-center' title="Catégories>">
                                     { game.category.map( ( {category} ) => {
                                         return (
-                                            <div className='mt-1 bg-grey-lite margin-left-s margin-right-s rounded inline-flex padding-litle'>
+                                            <div className='mt-1 bg-grey-lite margin-left-5 margin-right-5 rounded-0p25 inline-flex padding-0p4'>
                                                 <p>{value_to_category(category)}</p>
                                             </div>
                                         )
@@ -93,7 +93,7 @@ export default function GameModal({game, isShow, setShow}) {
                             <div className="mt-4 end-text">
                                 <button
                                     type="button"
-                                    className="px-4 py-2 text-sm button-style duration-300"
+                                    className="px-4 py-2 text-1p6 button-style duration-300"
                                     onClick={closeModal}
                                 >
                                     Retour

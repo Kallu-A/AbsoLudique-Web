@@ -28,7 +28,7 @@ export default function Navbar() {
         <Link href='/' className='inline-flex items-center p-2 mr-4 '>
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
-            <span className='text-xl text-white font-bold uppercase tracking-wide select'>
+            <span className='text-1p6 text-white font-bold uppercase tracking-wide select'>
               Abso'Ludique
             </span>
         </Link>
@@ -37,7 +37,7 @@ export default function Navbar() {
         { navigationRoutes.length !== 0 &&
 
         <button
-          className=' inline-flex p-3 hover:bg-grey-medium rounded lg:hidden text-white ml-auto hover:text-white outline-none'
+          className=' inline-flex p-3 hover:bg-grey-medium rounded-0p25 lg:hidden text-white ml-auto hover:text-white outline-none'
           onClick={handleClick}
         >
           <svg

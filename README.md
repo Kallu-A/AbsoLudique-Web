@@ -1,10 +1,7 @@
 # <img title="Abso'Ludique logo" alt="Logo d'abso'ludique" src=".res_readme/abso.svg" style="height: 80px; width: 80px; vertical-align: middle" width="80" height="80" >Abso'Ludique site Web 
 
-## Description du projet
-
-Site web du club Abso'Ludique (jeux de société) à TELECOM Nancy
-
-## Configuration OAUTH2 
+# Configuration
+## OAUTH2 
 [Configuration du compte Google](https://support.google.com/googleapi/answer/6158849?hl=en)
 
 [Tableau de bord API](https://console.cloud.google.com/apis/dashboard)
@@ -26,6 +23,16 @@ GOOGLE_CLIENT_SECRET='Secret client'
 GOOGLE_DISCOVERY_URL='https://accounts.google.com/.well-known/openid-configuration'
 ```
 
+## Domaines
+Il peut être nécessaire de changer les noms de domaines lors du passage en prod/dev modifier 
+- `back/.env` FRONT_URI
+- `front/next.config.js` remotePatterns
+- `front/api.js` BACK_PATH
+
+## Certificats
+[Générer certificat pour development uniquement](https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8)
+
+---
 
 ## Back-end - dev
 ### Installation
