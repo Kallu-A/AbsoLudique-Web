@@ -3,21 +3,20 @@ from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
-from flask import Flask, session
+from flask import Flask
 from flask_cors import CORS
-from flask_login import LoginManager
 from oauthlib.oauth2 import WebApplicationClient
 
 import controller
 from logger import logger_config
-from model.database.entity.user import User
 from setup_sql import database_path_test, database_path, db
+
+from flask_jwt_extended import JWTManager
 
 # To find the root of the project everywhere
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # do not remove this import allows SQLAlchemy to find the table
-from model.database.entity import boardgame, category, user
 
 load_dotenv()
 DURATION_TOKEN = os.getenv('DURATION_TOKEN')
@@ -63,9 +62,10 @@ def create_app(test=False):
     app_intern = Flask(__name__,
                        static_folder=STATIC)
     app_intern.config['SQLALCHEMY_DATABASE_URI'] = db_path
-    app_intern.config['SECRET_KEY'] = SECRET_KEY
+    app_intern.config['JWT_SECRET_KEY'] = SECRET_KEY
     app_intern.config['CORS_HEADERS'] = cors_header
     app_intern.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app_intern.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=float(DURATION_TOKEN))
     app_intern.config['MAX_CONTENT_LENGTH'] = SIZE_LIMIT_MO_UPLOAD * 1024 * 1024
 
     logger_config()
@@ -74,27 +74,13 @@ def create_app(test=False):
     CORS(app_intern, origins=[ORIGIN_DEV, ORIGIN_OAUTH])
     #CORS(app_intern, origins='*')
 
-    # login
-    login_manager = LoginManager()
-    login_manager.init_app(app_intern)
+    jwt = JWTManager(app_intern)
 
     # database init
     db.init_app(app_intern)
     with app_intern.app_context():
         db.create_all()
 
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(user_id)
-
-    @login_manager.unauthorized_handler
-    def unauthorized():
-        return "You must be logged in to access this content.", 403
-
-    @app_intern.before_request
-    def before_request():
-        session.permanent = True
-        app_intern.permanent_session_lifetime = timedelta(hours=int(DURATION_TOKEN))
 
 
     app_intern.logger.info("Start of the server with: "

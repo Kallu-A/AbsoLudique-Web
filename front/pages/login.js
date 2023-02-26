@@ -1,13 +1,14 @@
 import Image from "next/image";
-import {fetcher_auth} from "../api";
+import {fetcher_auth, FRONT_CALLBACK} from "../api";
 
 export default function Login() {
 
     function login() {
-        fetcher_auth('login').then(response =>
-           response.body.getReader().read()
-               .then( uri => window.location.assign( new TextDecoder("utf-8").decode(uri.value) )
-               ))
+        fetcher_auth('login').then(response => {
+            response.json().then(
+                rep => window.open(rep['url'])
+            )
+        })
     }
 
     return (

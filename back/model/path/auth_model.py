@@ -1,13 +1,10 @@
-import datetime
 import json
 
-import jwt
 import requests
-from flask import request
-from flask_login import logout_user
+from flask import request, jsonify, redirect
+from flask_jwt_extended import create_access_token, unset_jwt_cookies
 
-from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, DURATION_TOKEN
-from controller import app
+from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from model.database.entity.user import User
 from setup_sql import db
 
@@ -16,16 +13,19 @@ def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
+def get_user(id_user: int) -> User or None:
+    return User.query.filter(User.idUser == id_user).first()
+
+
 def login_model():
-    # Find out what URL to hit for Google login
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
-    # Use library to construct the request for Google login and provide
-    # scopes that let you retrieve user's profile from Google
+    redirect_uri = request.base_url + "/callback"
+
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=request.base_url + "/callback",
+        redirect_uri=redirect_uri,
         scope=["openid", "email", "profile"],
     )
     return {"url": request_uri}
@@ -64,22 +64,17 @@ def login_callback_model():
     else:
         return "User email not available or not verified by Google.", 400
 
-    user = User.query.filter(User.idUser == unique_id).first()
+    user = get_user(unique_id)
     if user is None:
         user = User(idUser=unique_id, firstname=users_firstname, lastname=users_lastname, email=users_email)
         db.session.add(user)
         db.session.commit()
 
-    token = jwt.encode({'id': user.idUser,
-                        'email': user.email,
-                        'firstname': user.firstname,
-                        'lastname': user.lastname,
-                        'expiration': datetime.datetime.utcnow() + datetime.timedelta(hours=DURATION_TOKEN)},
-                       app.config['SECRET_KEY'], "HS256")
-
+    token = create_access_token(identity=unique_id)
     return token, 200
 
 
 def logout_model():
-    logout_user()
+    response = jsonify({"msg": "logout successful"})
+    unset_jwt_cookies(response)
     return "Successfully logged out", 200

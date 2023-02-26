@@ -1,4 +1,4 @@
-from flask_login import login_required
+from flask_jwt_extended import jwt_required
 
 from controller import app
 from model.path.auth_model import login_model, login_callback_model, logout_model
@@ -15,6 +15,6 @@ def login_callback():
 
 
 @app.route("/logout")
-@login_required
+@jwt_required()
 def logout():
     return logout_model()
