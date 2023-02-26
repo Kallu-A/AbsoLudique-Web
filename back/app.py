@@ -39,7 +39,7 @@ def create_app(test=False):
     static = os.getenv('STATIC_FOLDER')
     secret_key = os.getenv('SECRET_KEY')
     front_uri = os.getenv('FRONT_URI')
-    cors_header = 'Content-Type'
+    cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
 
     # config the app to make app.py the start point but the actual program is one directory lower
     app_intern = Flask(__name__,
@@ -52,6 +52,8 @@ def create_app(test=False):
 
     logger_config()
     app_intern.register_blueprint(controller.app)
+
+    CORS(app_intern, origins=r'*')
 
     # login
     login_manager = LoginManager()
@@ -70,11 +72,9 @@ def create_app(test=False):
     def unauthorized():
         return "You must be logged in to access this content.", 403
 
-    CORS(app_intern, origins=front_uri)
-
     app_intern.logger.info("Start of the server with: "
                            "\n- SQLALCHEMY_DATABASE_URI = '" + db_path +
-                           "'\n- CORS_HEADERS = '" + cors_header +
+                           "'\n- CORS_HEADERS = '" + str(cors_header) +
                            "'\n- UPLOAD_FOLDER = '" + upload_folder +
                            "'\n- MAX_CONTENT_LENGTH = '" + str(size_limit_mo_upload) + "mo" +
                            "'\n- CORS = '" + front_uri + "'"
@@ -89,4 +89,4 @@ if __name__ == '__main__':
     PORT = os.getenv('PORT')
 
     app = create_app()
-    app.run(port=PORT, host=HOST, ssl_context="adhoc")
+    app.run(port=PORT, host=HOST)

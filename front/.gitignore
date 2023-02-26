@@ -26,5 +26,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
-/abso.key
-/abso.pem
+/cert/abso.key
+/cert/abso.pem
+cert/abso.pem
+cert/abso.key

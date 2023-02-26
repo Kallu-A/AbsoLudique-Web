@@ -330,5 +330,5 @@ jardiquest/static/upload/
 .idea
 .next
 TODO
-front/abso.pem
-front/abso.key
+front/cert/abso.pem
+front/cert/abso.key
