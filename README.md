@@ -28,6 +28,7 @@ Il peut être nécessaire de changer les noms de domaines lors du passage en pro
 - `back/.env` FRONT_URI
 - `front/next.config.js` remotePatterns
 - `front/api.js` BACK_PATH
+- `front/server.js` hostname, port
 
 ## Certificats
 [Générer certificat pour development uniquement](https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8)

@@ -19,10 +19,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.11",
     "autoprefixer": "^10.4.13",
-    "iron-session": "^6.3.1",
     "next": "latest",
-    "postcss": "^8.4.21",
+    "next-auth": "^4.19.2",
     "octokit": "^2.0.7",
+    "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
