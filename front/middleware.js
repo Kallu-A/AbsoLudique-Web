@@ -1,4 +1,5 @@
-import { NextResponse } from 'next/server'
+import {NextResponse} from 'next/server'
+import {verifyAuth} from "./lib/auth";
 
 export async function middleware(req) {
   const pathname = req.nextUrl.pathname;
@@ -7,9 +8,11 @@ export async function middleware(req) {
   const res = NextResponse.next();
 
   if (isPathProtected) {
-    //const token = await getToken({ req });
-    const token = null
-    if (!token) {
+      const verifiedToken = await verifyAuth(req).catch((err) => {
+    console.error(err.message)
+    })
+
+    if (!verifiedToken) {
       const url = new URL(`/login`, req.url);
       url.searchParams.set("callbackUrl", pathname);
       return NextResponse.redirect(url);
