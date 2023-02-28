@@ -18,3 +18,9 @@ def login_callback():
 @jwt_required()
 def logout():
     return logout_model()
+
+
+@app.route("/verify/token")
+@jwt_required()
+def verify():
+    return "true"

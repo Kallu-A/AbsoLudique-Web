@@ -1,17 +1,17 @@
 import Image from "next/image";
+import {useRouter} from "next/router";
 
 export default function Login() {
+    const router = useRouter()
+    let callback = router.query['callbackUrl']
+    if (callback === undefined || callback === '' || callback === null) {
+        callback = '/'
+    }
 
     async function login() {
-        /*
-        fetcher_auth('login').then(response => {
-            response.json().then(
-                rep => window.open(rep['url'])
-            )
-        })*/
-        let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3NzUzMjAyMywianRpIjoiZmJlMTgyODYtMDEwNC00ZDVlLThkZGYtODI4MjY1YTFhY2Y4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEwNzk4MjQyODkwMzExMDIxMDYyMCIsIm5iZiI6MTY3NzUzMjAyMywiZXhwIjoxNjc3NTYwODIzfQ.fr6EZAQ-npG1xJjlllWT7nfUNCMARIRwFlZwCH5Hnl0'
-        //await setUserCookie(NextResponse.next(), token)
-        //await fetch('/api/auth?' + USER_TOKEN + "=" + token, {method: 'POST'})
+        await fetch('/api/auth', {method: 'POST'})
+        sessionStorage.setItem("signedIn", 'true')
+        await router.push(callback)
     }
 
     return (

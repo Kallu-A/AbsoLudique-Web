@@ -11,6 +11,17 @@ export const fetcher = (path) => fetch( BACK_PATH + path, {
     }
 }).then(res => res.json())
 
+export const fetcherAuth = (path, token) => fetch( BACK_PATH + path, {
+    mode: 'cors',
+    credentials: "omit",
+    redirect: 'follow',
+    headers: {
+        'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+    }
+}).then(res => res.json())
+
+
+
 export const fetcher_auth = (path) => fetch( BACK_PATH + path, {
     mode: 'cors',
     credentials: "omit",
