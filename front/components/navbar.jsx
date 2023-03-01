@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import {useState} from 'react';
 import Image from 'next/image'
 import {useRouter} from "next/router";
 
 
 // add here to put it in the navbar
 const navigationRoutes = [
-    /*{ name:"Armoire", path:"armoire" },
-    { name:"Ajout jeu", path:"ajout/jeu" },*/
+    { name:"Armoire", path:"armoire" },
+    { name:"Ajout jeu", path:"ajout/jeu" },
 ];
 
 
@@ -18,6 +18,12 @@ export default function Navbar() {
   const handleClick = () => {
     setActive(!active);
   };
+
+  async function logout() {
+      await fetch('/api/logout', {method: 'POST'})
+      handleClick()
+      await router.push('login')
+    }
 
   return (
     <>
@@ -63,20 +69,25 @@ export default function Navbar() {
         >
 
 
-          {/* right part */}
-          <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
+            {/* right part */}
+            {router.asPath !== '/login' &&
+              <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
 
-              { navigationRoutes.map((route) => {
-                  const isActive = router.asPath === '/' + route.path
-                  return (
-                      <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
-                          <div className={`${isActive ? 'active-text': 'not-active-text'}`}>
-                              {route.name}
-                          </div>
-                      </Link>)
-              })}
+                  {navigationRoutes.map((route) => {
+                      const isActive = router.asPath === '/' + route.path
+                      return (
+                          <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
+                              <div className={`${isActive ? 'active-text': 'not-active-text'}`}>
+                                  {route.name}
+                              </div>
+                          </Link>)
+                  })}
+                  <div onClick={logout} className="select text-s lg:inline-flex lg:w-auto w-full px-3 py-2 hover:bg-grey-medium hover:text-white rounded text-white font-bold items-center justify-center">
+                      Déconnexion
+                  </div>
+              </div>
+            }
 
-          </div>
         </div>
       </nav>
     </>

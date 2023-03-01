@@ -1,4 +1,4 @@
-import {fetcher} from "../api";
+import {fetcherAuth} from "../api";
 import Game from "./game";
 import useSWRInfinite from "swr/infinite";
 import {useState} from "react";
@@ -24,8 +24,6 @@ export default function cabinet() {
     for (let cat in category_values) {
         categories.push(useState(false))
     }
-
-
     const {
         data,
         mutate,
@@ -45,7 +43,7 @@ export default function cabinet() {
                 .map( (value) => value[1]  )
                 .join('/'))
         ,
-        fetcher
+        fetcherAuth
     );
 
     const games = data ? [].concat(...data) : [];

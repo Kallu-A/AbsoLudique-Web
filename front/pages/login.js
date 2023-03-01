@@ -10,7 +10,6 @@ export default function Login() {
 
     async function login() {
         await fetch('/api/auth', {method: 'POST'})
-        sessionStorage.setItem("signedIn", 'true')
         await router.push(callback)
     }
 
