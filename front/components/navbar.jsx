@@ -68,9 +68,8 @@ export default function Navbar() {
           }   w-full lg:inline-flex lg:flex-grow lg:w-auto`}
         >
 
-
             {/* right part */}
-            {router.asPath !== '/login' &&
+            {router.pathname !== '/login' &&
               <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
 
                   {navigationRoutes.map((route) => {

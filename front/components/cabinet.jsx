@@ -1,14 +1,14 @@
-import {fetcherAuth} from "../api";
 import Game from "./game";
 import useSWRInfinite from "swr/infinite";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import ModalGame from "./modal_game";
 import {valueToCategory} from "../convert/value_to_category";
 import {valueToDifficulty} from "../convert/value_to_difficulty";
+import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
 
 let PAGE_SIZE = 30
 
-export default function cabinet() {
+export default function cabinet(token) {
     const [player, setPlayer] = useState();
     const [difficulty, setDifficulty] = useState();
     const [duration, setDuration] = useState();
@@ -17,6 +17,17 @@ export default function cabinet() {
     const [show, setShow] = useState(false);
     const [data_game, setDataGame] = useState(null);
 
+     const [tokenValue, setTokenValue] = useState(token)
+
+    useEffect( () => {
+        fetch('/api/token')
+          .then(response => {
+            response.json().then(value => setTokenValue(value));
+            mutate()
+          });
+
+        }, []);
+
     let category_values = Array.from(valueToCategory.values());
     let category_key = Array.from(valueToCategory.keys());
 
@@ -24,6 +35,7 @@ export default function cabinet() {
     for (let cat in category_values) {
         categories.push(useState(false))
     }
+
     const {
         data,
         mutate,
@@ -43,8 +55,21 @@ export default function cabinet() {
                 .map( (value) => value[1]  )
                 .join('/'))
         ,
-        fetcherAuth
+        (path) => {
+    return fetch( BACK_PATH + path, {
+        mode: 'cors',
+        credentials: 'omit',
+        redirect: 'follow',
+        headers: {
+            'Authorization': 'Bearer ' + tokenValue,
+            'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+        }
+    }).then(res => res.json())
+},
     );
+
+
+
 
     const games = data ? [].concat(...data) : [];
     const isLoadingMore =
@@ -140,17 +165,20 @@ export default function cabinet() {
 
                 <div className='flex flex-wrap padding-20 flex-games'>
                     { games && games.map( (game) => {
-                        return (
-                            <div className='pickable'
-                                key={game.idBoardgame}
-                                onClick={() => {
-                                    setDataGame(game)
-                                    setKey(game.idBoardgame)
-                                    setShow(true)
-                            } }>
-                               <Game key={game.idBoardgame} game={game}/>
-                            </div>
-                        )
+                        if (game.idBoardgame !== null && game.idBoardgame !== undefined)
+                            return (
+                                <div className='pickable'
+                                    key={game.idBoardgame}
+                                    onClick={() => {
+                                        setDataGame(game)
+                                        setKey(game.idBoardgame)
+                                        setShow(true)
+                                } }>
+                                   <Game key={game.idBoardgame} game={game}/>
+                                </div>
+                            )
+                        else
+                            return <></>
                     })}
                 </div>
 
