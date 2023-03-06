@@ -1,4 +1,5 @@
 import cookie from 'cookie';
+import {fetcher} from "../../api";
 
 export default async function login(req, res) {
   if (req.method !== 'POST') {
@@ -6,8 +7,11 @@ export default async function login(req, res) {
   }
 
   try {
-    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3Nzg4NTQ5MCwianRpIjoiNTUwYTljMDQtMWViMC00YWFhLWI4ZTgtYzY3YWEyZmQyZmNkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEwNzk4MjQyODkwMzExMDIxMDYyMCIsIm5iZiI6MTY3Nzg4NTQ5MCwiZXhwIjoxNjc3OTE0MjkwfQ.YNeJsKx-Aho3hbvIXnakVmhKa3bKxOh0sUDhg1lyRJk'
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY3ODExNzMxOCwianRpIjoiNmU3ZDk5ODYtZTcxMi00MDYzLTg3YzAtYTFlNDE0YWJhMTkxIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEwNzk4MjQyODkwMzExMDIxMDYyMCIsIm5iZiI6MTY3ODExNzMxOCwiZXhwIjoxNjc4MTQ2MTE4fQ.xoF3M0JgjXepmqJwc04R8NSzVhO5uAI1cvW-ZqGFtBc'
     // TODO to change !!!!
+    let redirect_callback = "?redirect_callback=" + "https://localhost:3000"
+    const resp = await fetcher("login" + redirect_callback)
+    console.log(resp)
 
     const maxAge = 60 * 60 * 8
     const setCookie = cookie.serialize('jwt', token, {

@@ -1,7 +1,8 @@
 import json
+import re
 
 import requests
-from flask import request, jsonify, redirect
+from flask import request, jsonify
 from flask_jwt_extended import create_access_token, unset_jwt_cookies
 
 from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
@@ -21,11 +22,16 @@ def login_model():
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
-    redirect_uri = request.base_url + "/callback"
+    redirect_callback = request.args.get("redirect_callback", default=None)
+    if redirect_callback is None:
+        redirect_callback_str = ''
+    else:
+        redirect_callback_str = "?redirect_callback=" + redirect_callback
 
+    redirect_uri = request.base_url + "/callback"
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri=redirect_uri,
+        redirect_uri=redirect_uri + redirect_callback_str,
         scope=["openid", "email", "profile"],
     )
     return {"url": request_uri}
@@ -36,17 +42,25 @@ def login_callback_model():
 
     google_provider_cfg = get_google_provider_cfg()
     token_endpoint = google_provider_cfg["token_endpoint"]
+    authorization_response = request.url
+
+    redirect_callback = re.search(r"\?redirect_callback=.*&code=", request.url).group()
+    redirect_callback = redirect_callback[0: len(redirect_callback) - 6]
+
+    #authorization_response = re.sub(r"\?redirect_callback=.*&code=", "?code=", request.url)
+    #print(authorization_response)
 
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
-        authorization_response=request.url,
+        authorization_response=authorization_response,
         redirect_url=request.base_url,
         code=code,
     )
+
     token_response = requests.post(
         token_url,
         headers=headers,
-        data=body,
+        data=body + redirect_callback,
         auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
     )
 
@@ -71,6 +85,9 @@ def login_callback_model():
         db.session.commit()
 
     token = create_access_token(identity=unique_id)
+
+    redirect_callback = request.args.get("redirect_callback")
+    print(redirect_callback)
     return token, 200
 
 

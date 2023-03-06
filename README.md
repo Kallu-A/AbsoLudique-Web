@@ -11,7 +11,7 @@
   - nom de l'application = Abso'Ludique
   - Adresse email d'assistance = *.net
   - Logo de l'application = '.res_extern/logo.png'
-  - l'uri de redirection `https://localhost:5000/login/callback`
+  - l'uri de redirection `https://localhost:5000/login/callback?redirect_callback=https://localhost:3000`
   - Les domaines nécessaires si hébergés
 
 ### Ajout des secrets
