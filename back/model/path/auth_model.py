@@ -2,7 +2,7 @@ import json
 import re
 
 import requests
-from flask import request, jsonify
+from flask import request, jsonify, redirect
 from flask_jwt_extended import create_access_token, unset_jwt_cookies
 
 from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
@@ -47,9 +47,6 @@ def login_callback_model():
     redirect_callback = re.search(r"\?redirect_callback=.*&code=", request.url).group()
     redirect_callback = redirect_callback[0: len(redirect_callback) - 6]
 
-    #authorization_response = re.sub(r"\?redirect_callback=.*&code=", "?code=", request.url)
-    #print(authorization_response)
-
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
         authorization_response=authorization_response,
@@ -87,8 +84,7 @@ def login_callback_model():
     token = create_access_token(identity=unique_id)
 
     redirect_callback = request.args.get("redirect_callback")
-    print(redirect_callback)
-    return token, 200
+    return redirect(redirect_callback + "?token=" + token)
 
 
 def logout_model():

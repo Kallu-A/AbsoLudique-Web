@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {useRouter} from "next/router";
+import {fetcher} from "../api";
 
 export default function Login() {
     const router = useRouter()
@@ -9,8 +10,15 @@ export default function Login() {
     }
 
     async function login() {
-        await fetch('/api/auth', {method: 'POST'})
-        await router.push(callback)
+        let hostname = window.location.hostname
+        let port = window.location.port
+        let redirect_callback = "?redirect_callback=" + "https://" + hostname + ":" + port + "/logincallback"
+        const resp = await fetcher( "login" + redirect_callback)
+            .catch(err => {
+          console.error(err)
+        })
+        window.location.replace(resp.url)
+        //await router.push(callback)
     }
 
     return (

@@ -9,7 +9,7 @@ export default async function games(req, res) {
     let difficulty = await query['difficulty']
     let duration = await query['duration']
     let category = await query['category']
-    let token = req.cookies['jwt']
+    //let token = req.cookies['jwt']
 
     const responses_back = await fetcher("games?cursor="
         + ((cursor !== 'undefined') ? cursor: '1')
