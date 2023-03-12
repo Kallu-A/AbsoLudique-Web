@@ -6,7 +6,6 @@ export async function middleware(req) {
     const protectedPaths = ["/", "/armoire", "ajout/jeu"];
     const isPathProtected = protectedPaths?.some((path) => pathname === path);
     if (isPathProtected) {
-
         const token = req.cookies.get('jwt')
         let verifiedToken = null
         if (token !== undefined && token !== null)
