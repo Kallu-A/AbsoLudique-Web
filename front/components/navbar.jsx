@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 
 // add here to put it in the navbar
 const navigationRoutes = [
-    { name:"Armoire", path:"armoire" },
+    //{ name:"Armoire", path:"armoire" },
     { name:"Ajout jeu", path:"ajout/jeu" },
 ];
 

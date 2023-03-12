@@ -5,6 +5,7 @@ import ModalGame from "./modal_game";
 import {valueToCategory} from "../convert/value_to_category";
 import {valueToDifficulty} from "../convert/value_to_difficulty";
 import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
+import Image from "next/image";
 
 let PAGE_SIZE = 30
 
@@ -164,6 +165,11 @@ export default function cabinet(token) {
             <div className='scrollable-vertical decal-vertical-bar-200'>
 
                 <div className='flex flex-wrap padding-20 flex-games'>
+                    { games.length === 0 &&
+                    <div>
+                        <Image title="Chargement" src="/loading.gif" alt="Chargement" width="50" height="100"/>Chargement...
+                    </div>
+                    }
                     { games && games.map( (game) => {
                         if (game.idBoardgame !== null && game.idBoardgame !== undefined)
                             return (

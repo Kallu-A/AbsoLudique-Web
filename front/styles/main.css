@@ -396,6 +396,7 @@ video {
 }
 .img-game {
     max-height: 220px;
+    min-height: 220px;
     width: auto;
 }
 .img-game-alone {

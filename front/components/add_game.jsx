@@ -1,7 +1,7 @@
 import {useState} from "react";
-import {BACK_PATH, fetcher_post} from "../api";
+import {BACK_PATH, fetcher_post, REDIRECT_GOOGLE} from "../api";
 
-export default function add_game() {
+export default function add_game(token) {
 
     const [name, setName] = useState('')
     const [state, setState] = useState('')
@@ -32,9 +32,18 @@ export default function add_game() {
         )
 
         formdata.append("file",  input.files[0])
-
         try {
-            const res = await fetcher_post('game', formdata)
+            const res = await fetch( BACK_PATH + 'game', {
+                method: 'post',
+                mode: 'cors',
+                credentials: 'omit',
+                redirect: 'follow',
+                body: formdata,
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+                }
+            })
 
             if (res.status === 200) {
                 setName('')
