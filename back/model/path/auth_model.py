@@ -3,19 +3,15 @@ import re
 
 import requests
 from flask import request, jsonify, redirect
-from flask_jwt_extended import create_access_token, unset_jwt_cookies, get_jwt_identity, decode_token
+from flask_jwt_extended import create_access_token, unset_jwt_cookies
 
 from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
-from model.database.entity.user import User
+from model.database.entity.user import User, get_user, is_admin_jwt
 from setup_sql import db
 
 
 def get_google_provider_cfg():
     return requests.get(GOOGLE_DISCOVERY_URL).json()
-
-
-def get_user(id_user: int) -> User or None:
-    return User.query.filter(User.idUser == id_user).first()
 
 
 def login_model():
@@ -95,7 +91,6 @@ def logout_model():
 
 
 def is_admin_model():
-    user_id = get_jwt_identity()
-    user = get_user(user_id)
-    return str(user.admin)
+    return str(is_admin_jwt())
+
 

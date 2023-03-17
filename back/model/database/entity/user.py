@@ -1,3 +1,5 @@
+from flask_jwt_extended import get_jwt_identity
+
 from setup_sql import db
 
 
@@ -21,3 +23,14 @@ class User(db.Model):
     @staticmethod
     def is_authenticated():
         return True
+
+
+def get_user(id_user: int) -> User or None:
+    return User.query.filter(User.idUser == id_user).first()
+
+
+# only call in a jwt_required path
+def is_admin_jwt():
+    user_id = get_jwt_identity()
+    user = get_user(user_id)
+    return user.admin

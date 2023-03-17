@@ -1,6 +1,7 @@
 from flask_jwt_extended import jwt_required
 
 from controller import app
+from model.decorators import account_admin
 from model.path.auth_model import login_model, login_callback_model, logout_model, is_admin_model
 
 

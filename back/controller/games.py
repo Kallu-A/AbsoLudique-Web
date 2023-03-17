@@ -1,6 +1,7 @@
 from flask import request
 
 from controller import app
+from model.decorators import account_admin
 from model.path.games_model import games_model, games_filter_model, game_id, post_game_model
 
 from flask_jwt_extended import jwt_required
@@ -44,5 +45,6 @@ def get_game_id(id_game: int) -> list:
 # request.form as data & file
 @app.post("/game")
 @jwt_required()
+@account_admin()
 def post_game():
     return post_game_model()
