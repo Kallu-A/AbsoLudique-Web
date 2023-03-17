@@ -16,7 +16,7 @@ export async function middleware(req) {
                 })
         if (!verifiedToken) {
             const url = new URL(`/login`, req.url);
-            url.searchParams.set("callbackUrl", pathname);
+           // url.searchParams.set("callbackUrl", pathname);
             return NextResponse.redirect(url);
         }
     }

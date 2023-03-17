@@ -1,18 +1,20 @@
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import Image from 'next/image'
 import {useRouter} from "next/router";
-import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
-
-
+import {Context} from "../context";
 
 
 export default function Navbar() {
+    const { admin, setAdmin } = useContext(Context);
     // add here to put it in the navbar
     const navigationRoutes = [
-        //{ name:"Armoire", path:"armoire" },
-        //{ name:"Ajout jeu", path:"ajout/jeu" },
+        { name:"Armoire", path:"armoire" },
     ];
+    const navigationRoutesAdmin = [
+        { name:"Ajout jeu", path:"ajout/jeu" },
+    ];
+
 
   const [active, setActive] = useState(false);
   const router = useRouter();
@@ -24,25 +26,11 @@ export default function Navbar() {
   async function logout() {
       await fetch('/api/logout', {method: 'POST'})
       handleClick()
-      await router.push('login')
+      await router.push('/login')
     }
 
-    useEffect( () => {
-        fetch( BACK_PATH + 'user/admin', {
-            mode: 'cors',
-            credentials: 'omit',
-            redirect: 'follow',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
-            }
-        }).then(res => {
-            res.body.getReader().read().then( value => {
-                let res = new TextDecoder("utf-8").decode(value.value)
-                if (res === 'True') navigationRoutes.push({ name:"Ajout jeu", path:"ajout/jeu" })
-            })
-        })
-            .catch(err => console.log(err))
+    useEffect( ()=> {
+        console.log(admin)
     })
 
   return (
@@ -91,8 +79,17 @@ export default function Navbar() {
             {/* right part */}
             {router.pathname !== '/login' &&
               <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
-
-                  {navigationRoutes.map((route) => {
+                  {/* if is admin */}
+                  { admin === true && navigationRoutesAdmin.map((route) => {
+                      const isActive = router.asPath === '/' + route.path
+                      return (
+                          <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
+                              <div className={`${isActive ? 'active-text': 'not-active-text'}`}>
+                                  {route.name}
+                              </div>
+                          </Link>)
+                  })}
+                  { navigationRoutes.map((route) => {
                       const isActive = router.asPath === '/' + route.path
                       return (
                           <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
