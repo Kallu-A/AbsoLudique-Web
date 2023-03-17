@@ -3,7 +3,7 @@ import re
 
 import requests
 from flask import request, jsonify, redirect
-from flask_jwt_extended import create_access_token, unset_jwt_cookies
+from flask_jwt_extended import create_access_token, unset_jwt_cookies, get_jwt_identity, decode_token
 
 from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from model.database.entity.user import User
@@ -77,7 +77,8 @@ def login_callback_model():
 
     user = get_user(unique_id)
     if user is None:
-        user = User(idUser=unique_id, firstname=users_firstname, lastname=users_lastname, email=users_email)
+        user = User(idUser=unique_id, firstname=users_firstname,
+                    lastname=users_lastname, email=users_email, admin=False)
         db.session.add(user)
         db.session.commit()
 
@@ -91,3 +92,10 @@ def logout_model():
     response = jsonify({"msg": "logout successful"})
     unset_jwt_cookies(response)
     return "Successfully logged out", 200
+
+
+def is_admin_model():
+    user_id = get_jwt_identity()
+    user = get_user(user_id)
+    return str(user.admin)
+

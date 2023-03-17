@@ -2,7 +2,6 @@ import cabinet from "../components/cabinet";
 import {getToken} from "../lib/auth";
 
 export default function Home({token}) {
-    console.log("Home token " + token)
     return (
         <div>
             {cabinet(token)}
@@ -10,6 +9,7 @@ export default function Home({token}) {
     );
 }
 
+// get the token
 export async function getServerSideProps(context) {
     let token = getToken(context)
 

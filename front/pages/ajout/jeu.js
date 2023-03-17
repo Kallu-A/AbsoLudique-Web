@@ -9,6 +9,7 @@ export default function addGame({token}) {
     );
 }
 
+// get the token
 export async function getServerSideProps(context) {
     let token = getToken(context)
 

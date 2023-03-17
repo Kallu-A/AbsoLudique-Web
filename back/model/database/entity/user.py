@@ -9,6 +9,7 @@ class User(db.Model):
     firstname = db.Column(db.String(100), nullable=False)
     lastname = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
+    admin = db.Column(db.Boolean, nullable=False)
 
     def get_id(self):
         return self.idUser
