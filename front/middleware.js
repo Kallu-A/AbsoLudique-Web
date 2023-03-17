@@ -14,7 +14,6 @@ export async function middleware(req) {
                 verifiedToken = await verifyAuth(token).catch((err) => {
                     console.error("Token invalid", err.message)
                 })
-
         if (!verifiedToken) {
             const url = new URL(`/login`, req.url);
             url.searchParams.set("callbackUrl", pathname);
