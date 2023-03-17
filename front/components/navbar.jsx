@@ -1,17 +1,19 @@
 import Link from 'next/link';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Image from 'next/image'
 import {useRouter} from "next/router";
+import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
 
 
-// add here to put it in the navbar
-const navigationRoutes = [
-    //{ name:"Armoire", path:"armoire" },
-    { name:"Ajout jeu", path:"ajout/jeu" },
-];
 
 
 export default function Navbar() {
+    // add here to put it in the navbar
+    const navigationRoutes = [
+        //{ name:"Armoire", path:"armoire" },
+        //{ name:"Ajout jeu", path:"ajout/jeu" },
+    ];
+
   const [active, setActive] = useState(false);
   const router = useRouter();
 
@@ -24,6 +26,24 @@ export default function Navbar() {
       handleClick()
       await router.push('login')
     }
+
+    useEffect( () => {
+        fetch( BACK_PATH + 'user/admin', {
+            mode: 'cors',
+            credentials: 'omit',
+            redirect: 'follow',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+            }
+        }).then(res => {
+            res.body.getReader().read().then( value => {
+                let res = new TextDecoder("utf-8").decode(value.value)
+                if (res === 'True') navigationRoutes.push({ name:"Ajout jeu", path:"ajout/jeu" })
+            })
+        })
+            .catch(err => console.log(err))
+    })
 
   return (
     <>
