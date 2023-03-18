@@ -6,7 +6,7 @@ import {Context} from "../context";
 
 
 export default function Navbar() {
-    const { admin, setAdmin } = useContext(Context);
+    const { adminValue, setAdmin } = useContext(Context);
     // add here to put it in the navbar
     const navigationRoutes = [
         { name:"Armoire", path:"armoire" },
@@ -29,8 +29,6 @@ export default function Navbar() {
       await router.push('/login')
     }
 
-  console.log(admin)
-
   return (
     <>
 
@@ -41,7 +39,7 @@ export default function Navbar() {
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
             <span className='text-1p6 text-white font-bold uppercase tracking-wide select'>
-              Abso'Ludique {admin}
+              Abso'Ludique {adminValue}
             </span>
         </Link>
 
@@ -78,7 +76,7 @@ export default function Navbar() {
             {router.pathname !== '/login' &&
               <div className='lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto'>
                   {/* if is admin */}
-                  { admin === true && navigationRoutesAdmin.map((route) => {
+                  { adminValue === true && navigationRoutesAdmin.map((route) => {
                       const isActive = router.asPath === '/' + route.path
                       return (
                           <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>

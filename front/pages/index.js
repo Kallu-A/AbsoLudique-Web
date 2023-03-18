@@ -18,7 +18,7 @@ export default function Home({token, admin}) {
 // get the token
 export async function getServerSideProps(context) {
     let token = getToken(context)
-    let admin = true
+    let admin = false
     fetch( BACK_PATH + 'user/admin', {
             mode: 'cors',
             credentials: 'omit',
