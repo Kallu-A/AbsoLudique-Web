@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { createContext, useState } from "react"
 
-const Context = React.createContext({
-  admin: false,
-  setAdmin : () => null,
+
+export const Context = createContext({
+    adminValue: false,
+    setAdmin: () => {},
 })
 
-const contextProvider = ({ children }) => {
-  const [admin, setAdmin] = useState(false);
-
-  return <Context.Provider value={{ admin, setAdmin }}>{children}</Context.Provider>
+export const ContextProvider = ({ children }) => {
+    const [admin, setAdmin] = useState(false);
+    return (
+        <Context.Provider value={{ adminValue: admin, setAdmin: setAdmin }}>
+            {children}
+        </Context.Provider>
+    )
 }
 
-export {Context, contextProvider };

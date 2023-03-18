@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import Image from 'next/image'
 import {useRouter} from "next/router";
 import {Context} from "../context";
@@ -29,9 +29,7 @@ export default function Navbar() {
       await router.push('/login')
     }
 
-    useEffect( ()=> {
-        console.log(admin)
-    })
+  console.log(admin)
 
   return (
     <>
@@ -43,7 +41,7 @@ export default function Navbar() {
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
             <span className='text-1p6 text-white font-bold uppercase tracking-wide select'>
-              Abso'Ludique
+              Abso'Ludique {admin}
             </span>
         </Link>
 
