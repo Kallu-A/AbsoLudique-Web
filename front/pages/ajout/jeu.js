@@ -1,9 +1,10 @@
 import add_game from "../../components/add_game";
-import {getToken} from "../../lib/auth";
-import {BACK_PATH, fetcher, REDIRECT_GOOGLE} from "../../api";
+import {setAdmin, getToken} from "../../lib/auth";
+import {BACK_PATH, REDIRECT_GOOGLE} from "../../api";
 import {useEffect, useState} from "react";
 
 export default function addGame({token}) {
+    setAdmin(token)
     const [show, setshow] = useState(0);
 
     useEffect(() => {

@@ -1,11 +1,12 @@
 import '../styles/main.css';
 import Layout from "../components/layout";
-import React, {useState} from "react";
+import React from "react";
 import {ContextProvider} from "../context";
 
 export default function MyApp({
   Component, pageProps: { session, ...pageProps }
 }) {
+
     return (
         <ContextProvider>
             <Layout>
