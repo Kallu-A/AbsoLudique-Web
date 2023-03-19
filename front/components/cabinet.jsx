@@ -70,8 +70,6 @@ export default function cabinet(token) {
     );
 
 
-
-
     const games = data ? [].concat(...data) : [];
     const isLoadingMore =
         isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
@@ -165,7 +163,7 @@ export default function cabinet(token) {
             <div className='scrollable-vertical decal-vertical-bar-200'>
 
                 <div className='flex flex-wrap padding-20 flex-games'>
-                    { games.length === 0 &&
+                    { games.length === 0 && !isReachingEnd &&
                     <div>
                         <Image title="Chargement" src="/loading.gif" alt="Chargement" width="50" height="100"/>Chargement...
                     </div>
@@ -199,6 +197,9 @@ export default function cabinet(token) {
                                     : "voir plus"}
                             </button>
                         </>
+                    }
+                    {isReachingEnd && games.length === 0 &&
+                        <div className='text-2'>Aucun jeu trouvé</div>
                     }
                 </div>
             </div>
