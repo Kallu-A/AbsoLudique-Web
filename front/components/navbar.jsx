@@ -39,12 +39,12 @@ export default function Navbar() {
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
             <span className='text-1p6 text-white font-bold uppercase tracking-wide select'>
-              Abso'Ludique {adminValue}
+              Abso'Ludique
             </span>
         </Link>
 
         {/* hamburger nav */}
-        { navigationRoutes.length !== 0 &&
+        {
 
         <button
           className='inline-flex p-3 hover:bg-grey-medium rounded-0p25 lg:hidden text-white ml-auto hover:text-white outline-none'
