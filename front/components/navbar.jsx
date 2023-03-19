@@ -47,7 +47,7 @@ export default function Navbar() {
         { navigationRoutes.length !== 0 &&
 
         <button
-          className=' inline-flex p-3 hover:bg-grey-medium rounded-0p25 lg:hidden text-white ml-auto hover:text-white outline-none'
+          className='inline-flex p-3 hover:bg-grey-medium rounded-0p25 lg:hidden text-white ml-auto hover:text-white outline-none'
           onClick={handleClick}
         >
           <svg
