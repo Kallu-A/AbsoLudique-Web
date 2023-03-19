@@ -9,7 +9,7 @@ export default function Navbar() {
     const { adminValue, setAdmin } = useContext(Context);
     // add here to put it in the navbar
     const navigationRoutes = [
-        { name:"Armoire", path:"armoire" },
+        //{ name:"Armoire", path:"armoire" },
     ];
     const navigationRoutesAdmin = [
         { name:"Ajout jeu", path:"ajout/jeu" },
