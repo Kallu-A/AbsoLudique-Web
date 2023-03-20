@@ -579,10 +579,6 @@ video {
     font-size: 1.1rem;
     line-height: 1.1rem;
 }
-.text-1p6 {
-    font-size: 1.6rem;
-    line-height: 1.6rem;
-}
 .text-gray-500 {
     --tw-text-opacity: 1;
     color: rgb(107 114 128 / var(--tw-text-opacity));
@@ -736,6 +732,14 @@ video {
     background-color: rgb(74 82 90);
     color: white;
     border-radius: 5px;
+}
+.delete-button {
+    background-color: rgb(255 0 0);
+    color: white;
+    border-radius: 5px;
+}
+.delete-button:hover {
+    background-color: rgb(199, 10, 10);
 }
 .button-larger {
     font-size: 1.3em;

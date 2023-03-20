@@ -28,7 +28,10 @@ def upload_file(request, path, filename_stored) -> [bool, str] or bool:
 
 
 def delete_file(path, filename) -> None:
-    os.remove(os.path.join(path, filename))
+    if path == '':
+        os.remove(os.path.join(UPLOAD_FOLDER, filename))
+    else:
+        os.remove(os.path.join(path, filename))
 
 
 def file_exist(path, filename) -> bool:

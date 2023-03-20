@@ -1,13 +1,36 @@
 import {Dialog, Transition} from "@headlessui/react";
-import {Fragment} from "react";
-import {BACK_PATH} from "../api";
+import {Fragment, useContext} from "react";
+import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
 import Image from "next/image";
 import value_to_difficulty from "../convert/value_to_difficulty";
 import value_to_category from "../convert/value_to_category";
+import {Context} from "../context";
+import Link from "next/link";
+import {useRouter} from "next/router";
 
-export default function GameModal({game, isShow, setShow}) {
+export default function GameModal({game, isShow, setShow, tokenValue, deleteCallback}) {
+    const { adminValue, setAdmin } = useContext(Context);
+    const router = useRouter()
     function closeModal() {
         setShow(false)
+    }
+
+    function deleteGame() {
+        if (confirm('Voulez-vous vraiment supprimer ce jeu ?'))
+            fetch(BACK_PATH + 'game/' + game.idBoardgame, {
+                method: 'DELETE',
+                mode: 'cors',
+                credentials: 'omit',
+                redirect: 'follow',
+                headers: {
+                    'Authorization': 'Bearer ' + tokenValue,
+                    'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+             }})
+                .then(res => {
+                    deleteCallback()
+                    closeModal()
+                })
+                .catch(err => console.log(err))
     }
 
     return (
@@ -49,7 +72,7 @@ export default function GameModal({game, isShow, setShow}) {
                         <div className="inline-block w-full modal-game-size p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl shadow-el border">
                             <Dialog.Title
                                 as="h1"
-                                className="font-bold text-xxl center-text leading-6 text-gray-900"
+                                className="font-bold text-2 center-text leading-6 text-gray-900"
                             >
                                 {game.name}
                             </Dialog.Title>
@@ -91,11 +114,26 @@ export default function GameModal({game, isShow, setShow}) {
                             </div>
 
                             <div className="mt-4 end-text">
+
+                                { adminValue &&
+                                    <>
+                                        <button
+                                            type="button"
+                                            className="px-4 py-2 text-1p6 duration-300 delete-button mr-4 mt-1"
+                                            onClick={deleteGame}>
+                                            Supprimer
+                                        </button>
+
+                                        <button type="button"
+                                                onClick={ () => router.push(`/game/${game.idBoardgame}`)} className='px-4 py-2 text-1p6 button-style duration-300 mr-4 mt-1'>
+                                           Modifier
+                                        </button>
+                                    </>
+                                }
                                 <button
                                     type="button"
-                                    className="px-4 py-2 text-1p6 button-style duration-300"
-                                    onClick={closeModal}
-                                >
+                                    className="px-4 py-2 text-1p6 button-style duration-300 mt-1"
+                                    onClick={closeModal}>
                                     Retour
                                 </button>
                             </div>

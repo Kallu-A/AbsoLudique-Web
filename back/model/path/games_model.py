@@ -7,7 +7,7 @@ from model.database.entity.boardgame import Boardgame
 from model.database.enum.CategoryValue import CategoryValue
 from model.database.enum.Difficulty import Difficulty
 from model.database.schema.boardgame_schema import BoardgameSchema
-from model.database.upload import upload_file
+from model.database.upload import upload_file, delete_file
 from setup_sql import db
 
 
@@ -17,9 +17,25 @@ def game_id(id_game: int) -> list or Response:
     boardgame_schema = BoardgameSchema()
     boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
     if boardgame is None:
-        logger.LOGGER.warning('Boardgame don\' exist id:%i - 404', id_game)
+        logger.LOGGER.warning('Boardgame don\'t exist id:%i - 404', id_game)
         return Response("Boardgame with id:" + str(id_game) + " doesn't exist", status=404)
     return boardgame_schema.dump(boardgame)
+
+
+# delete a game with the id
+# or else return response 404
+def delete_game_id_model(id_game: int) ->Response:
+    boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
+    if boardgame is None:
+        logger.LOGGER.warning('Boardgame don\'t exist id:%i - 404', id_game)
+        return Response("Boardgame with id:" + str(id_game) + " doesn't exist", status=404)
+
+    id_boardgame = boardgame.idBoardgame
+    db.session.delete(boardgame)
+    db.session.commit()
+    delete_file('', str(id_boardgame))
+
+    return Response("Boardgame with id:" + str(id_game) + " deleted", status=200)
 
 
 # basic pagination without filter

@@ -2,7 +2,7 @@ from flask import request
 
 from controller import app
 from model.decorators import account_admin
-from model.path.games_model import games_model, games_filter_model, game_id, post_game_model
+from model.path.games_model import games_model, games_filter_model, game_id, post_game_model, delete_game_id_model
 
 from flask_jwt_extended import jwt_required
 
@@ -39,6 +39,14 @@ def get_games() -> list:
 @jwt_required()
 def get_game_id(id_game: int) -> list:
     return game_id(id_game)
+
+
+# delete game by id
+@app.delete("/game/<int:id_game>")
+@jwt_required()
+@account_admin()
+def delete_game_id(id_game: int) -> str:
+    return delete_game_id_model(id_game)
 
 
 # post a game with value in

@@ -1,13 +1,11 @@
 import Game from "./game";
 import useSWRInfinite from "swr/infinite";
-import {useContext, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import ModalGame from "./modal_game";
 import {valueToCategory} from "../convert/value_to_category";
 import {valueToDifficulty} from "../convert/value_to_difficulty";
 import {BACK_PATH, REDIRECT_GOOGLE} from "../api";
 import Image from "next/image";
-import {Context} from "../context";
-import Link from "next/link";
 
 let PAGE_SIZE = 30
 
@@ -19,7 +17,6 @@ export default function cabinet(token) {
     const [name, setName] = useState('');
     const [show, setShow] = useState(false);
     const [data_game, setDataGame] = useState(null);
-    const { adminValue, setAdmin } = useContext(Context);
 
      const [tokenValue, setTokenValue] = useState(token)
 
@@ -82,7 +79,7 @@ export default function cabinet(token) {
 
     return (
         <>
-            <ModalGame game={data_game} key={key} isShow={show} setShow={setShow}/>
+            <ModalGame game={data_game} key={key} isShow={show} setShow={setShow} tokenValue={token} deleteCallback={mutate}/>
 
             <div className="vertical-bar bg-grey-litle-plain">
                 <div className='scrollable-vertical-filter padding-bar'>
@@ -181,11 +178,11 @@ export default function cabinet(token) {
                                         setKey(game.idBoardgame)
                                         setShow(true)
                                 } }>
-                                    { adminValue &&
-                                        <Link href={`/game/${game.idBoardgame}`} className='absolute radius-10 shadow-el background-white padding-2'>
+                                    {/* adminValue &&
+                                       <Link href={`/game/${game.idBoardgame}`} className='absolute radius-10 shadow-el background-white padding-2'>
                                             <Image  src="/edit.png" alt="Éditer le jeu" width="30" height="30"
                                                                 className=''></Image>
-                                        </Link>}
+                                        </Link>*/}
                                    <Game key={game.idBoardgame} game={game}/>
                                 </div>
                             )
