@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, Response
 
 from controller import app
 from model.decorators import account_admin
@@ -45,7 +45,7 @@ def get_game_id(id_game: int) -> list:
 @app.delete("/game/<int:id_game>")
 @jwt_required()
 @account_admin()
-def delete_game_id(id_game: int) -> str:
+def delete_game_id(id_game: int) -> Response:
     return delete_game_id_model(id_game)
 
 

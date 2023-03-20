@@ -24,7 +24,7 @@ def game_id(id_game: int) -> list or Response:
 
 # delete a game with the id
 # or else return response 404
-def delete_game_id_model(id_game: int) ->Response:
+def delete_game_id_model(id_game: int) -> Response:
     boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
     if boardgame is None:
         logger.LOGGER.warning('Boardgame don\'t exist id:%i - 404', id_game)
