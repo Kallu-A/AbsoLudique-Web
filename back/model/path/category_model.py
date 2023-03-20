@@ -3,7 +3,7 @@ from flask import Response
 import logger
 from model.database.entity.boardgame import Boardgame
 from model.database.entity.category import Category
-from model.database.enum import CategoryValue
+from model.database.enum.CategoryValue import CategoryValue
 from setup_sql import db
 
 

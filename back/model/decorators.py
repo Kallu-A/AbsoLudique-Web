@@ -15,11 +15,8 @@ def account_admin() -> any:
         @wraps(fn)
         def decorator(*args, **kwargs):
             admin = is_admin_jwt()
-            print(admin)
             if not admin:
-                print('not a admin')
                 return "Unauthorized: not a admin account"
-            print("is admin")
             return current_app.ensure_sync(fn)(*args, **kwargs)
 
         return decorator

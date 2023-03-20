@@ -13,7 +13,7 @@ export default function add_game(token) {
     const [duration, setDuration] = useState('')
     const [file, setFile] = useState('')
 
-    let category_values = Array.from(valueToCategory.values());
+    let category_values = Array.from(valueToCategory.entries());
     let categories = []
     for (let cat in category_values) {
         categories.push(useState(false))
@@ -59,6 +59,28 @@ export default function add_game(token) {
                 setMaxPlayers('')
                 setDuration('')
                 setFile('')
+
+                res.body.getReader().read().then( value => {
+                    let id = new TextDecoder("utf-8").decode(value.value)
+                    for (let cat in categories) {
+                        if (categories[cat][0])
+                            fetch(BACK_PATH + 'category/' + id + "/" + category_values[cat][0], {
+                                method: 'post',
+                                mode: 'cors',
+                                credentials: 'omit',
+                                redirect: 'follow',
+                                headers: {
+                                    'Authorization': 'Bearer ' + token,
+                                    'Access-Control-Allow-Origin': [BACK_PATH, REDIRECT_GOOGLE]
+                                }
+                            })
+                                .catch(err => {
+                                    console.log(err)
+                                })
+                        categories[cat][1](false)
+                    }
+
+                })
 
                 alert("Jeu ajouter")
 
@@ -197,7 +219,7 @@ export default function add_game(token) {
                                         <label
                                             className="pl-[0.15rem] margin-left-5 hover:cursor-pointer"
                                             htmlFor={`{checkboxDefault${index}`}>
-                                            {value}
+                                            {value[1]}
                                         </label>
                                     </span>
                                 )
