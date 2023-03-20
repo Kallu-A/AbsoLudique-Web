@@ -327,7 +327,13 @@ video {
 .ml-auto {
     margin-left: auto;
 }
-.ml-left-litle {
+.ml-5 {
+    margin-left: 5px;
+}
+.ml-10 {
+    margin-left: 10px;
+}
+.ml-20 {
     margin-left: 20px;
 }
 .mr-2 {
@@ -339,6 +345,9 @@ video {
 .z-10 {
     z-index: 10;
 }
+.radius-10 {
+    border-radius: 10px;
+}
 .overflow-y-auto {
     overflow-y: auto;
 }
@@ -347,6 +356,9 @@ video {
 }
 .min-h-screen {
     min-height: 100vh;
+}
+.background-white {
+    background-color: #fff;
 }
 .flex {
     display: flex;
@@ -455,6 +467,9 @@ video {
 }
 .padding-0p4 {
     padding: 0.4rem;
+}
+.padding-2 {
+    padding: 2px;
 }
 .bg-white {
     --tw-bg-opacity: 1;
@@ -707,6 +722,9 @@ video {
 .pickable *,
 .pickable {
     cursor: pointer;
+}
+.absolute {
+    position: absolute;
 }
 .flex-games {
         justify-content: center;

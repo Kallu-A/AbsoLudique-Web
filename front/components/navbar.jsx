@@ -26,6 +26,7 @@ export default function Navbar() {
   async function logout() {
       await fetch('/api/logout', {method: 'POST'})
       handleClick()
+      setAdmin(false)
       await router.push('/login')
     }
 
