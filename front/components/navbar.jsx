@@ -22,6 +22,9 @@ export default function Navbar() {
   const handleClick = () => {
     setActive(!active);
   };
+    const handleClickForced = (value) => {
+    setActive(value);
+  };
 
   async function logout() {
       await fetch('/api/logout', {method: 'POST'})
@@ -33,13 +36,13 @@ export default function Navbar() {
   return (
     <>
 
-      <nav className='flex items-center flex-wrap bg-grey-heavy p-3 '>
+      <nav className='flex items-center flex-wrap bg-grey-heavy p-3 z-first'>
 
         {/* left part */}
         <Link href='/' className='inline-flex items-center p-2 mr-4 '>
             <Image src="/logo.svg" alt="logo d'abso'ludique" width="80" height="60" />
 
-            <span className='text-1p6 text-white font-bold uppercase tracking-wide select'>
+            <span onClick={ () => handleClickForced(false)} className='text-1p6 text-white font-bold uppercase tracking-wide select'>
               Abso'Ludique
             </span>
         </Link>
@@ -80,7 +83,7 @@ export default function Navbar() {
                   { adminValue === true && navigationRoutesAdmin.map((route) => {
                       const isActive = router.asPath === '/' + route.path
                       return (
-                          <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
+                          <Link onClick={ () => handleClickForced(false)} href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
                               <div className={`${isActive ? 'active-text': 'not-active-text'}`}>
                                   {route.name}
                               </div>
@@ -89,7 +92,7 @@ export default function Navbar() {
                   { navigationRoutes.map((route) => {
                       const isActive = router.asPath === '/' + route.path
                       return (
-                          <Link href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
+                          <Link onClick={ () => handleClickForced(false)} href={`/${route.path}`} className={`${isActive ? 'active-path': 'hover:bg-grey-medium hover:text-white'} text-s lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white font-bold items-center justify-center`}>
                               <div className={`${isActive ? 'active-text': 'not-active-text'}`}>
                                   {route.name}
                               </div>

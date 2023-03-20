@@ -132,10 +132,10 @@ export default function cabinet(token) {
                                             categories[index][1](e.target.checked)
                                             mutate()
                                         }}
-                                        id="checkboxDefault"/>
+                                        id={`{checkboxDefault${index}`}/>
                                     <label
                                         className="inline-block pl-[0.15rem] margin-left-5 hover:cursor-pointer"
-                                        htmlFor="checkboxDefault">
+                                        htmlFor={`{checkboxDefault${index}`}>
                                         {value}
                                     </label>
                                 </div>

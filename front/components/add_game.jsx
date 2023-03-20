@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {BACK_PATH, fetcher_post, REDIRECT_GOOGLE} from "../api";
+import {valueToCategory} from "../convert/value_to_category";
 
 export default function add_game(token) {
 
@@ -12,12 +13,16 @@ export default function add_game(token) {
     const [duration, setDuration] = useState('')
     const [file, setFile] = useState('')
 
+    let category_values = Array.from(valueToCategory.values());
+    let categories = []
+    for (let cat in category_values) {
+        categories.push(useState(false))
+    }
+
     const save = async (e) => {
         e.preventDefault()
 
         let input = document.querySelector('input[type="file"]')
-
-
         let formdata = new FormData()
 
         formdata.append("data", JSON.stringify({
@@ -28,7 +33,7 @@ export default function add_game(token) {
             'minPlayers': minPlayers,
             'maxPlayers': maxPlayers,
             'duration': duration,
-                    })
+            })
         )
 
         formdata.append("file",  input.files[0])
@@ -69,12 +74,12 @@ export default function add_game(token) {
         }
 
     return (
-        <div className='centered-element shadow-el padding-20 rounded-0p75 height-limited-600'>
+        <div className='scrollable-vertical-game margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
             <h1 className='text-2 center-text margin-top-bottom-5 title-color'>Ajout d'un jeu</h1>
             <hr className='margin-padding-bottom-20'></hr>
 
-            <div className='scrollable-vertical-form'>
-                <form className='mt-4 w-fit-content max-w-add-game display-form'>
+            <div className='margin-auto flex flex-center'>
+                <form className='w-fit-content max-w-add-game display-form'>
 
                 <div className="md:flex  md:items-center mb-6">
                     <div className="md:w-1/3">
@@ -173,6 +178,32 @@ export default function add_game(token) {
                             aria-describedby="user_avatar_help" id="user_avatar" type="file"/>
                       </div>
                 </div>
+
+                    <div className="md:flex mb-6 flex-category margin-10">
+                        <div className="md:w-1/3">
+                            <label className="title-color text-1p4" htmlFor="user_avatar">
+                                Catégories</label>
+                        </div>
+                        <div className="md:w-2/3">
+                            { category_values.map( (value, index) => {
+                                return (
+                                    <span key={value} className="ml-5 margin-right-5">
+                                        <input
+                                            className="bg-white outline-none"
+                                            type="checkbox"
+                                            value={categories[index][0]} checked={categories[index][0]}
+                                            onChange={(e) => categories[index][1](e.target.checked)}
+                                            id={`{checkboxDefault${index}`}/>
+                                        <label
+                                            className="pl-[0.15rem] margin-left-5 hover:cursor-pointer"
+                                            htmlFor={`{checkboxDefault${index}`}>
+                                            {value}
+                                        </label>
+                                    </span>
+                                )
+                            })}
+                        </div>
+                    </div>
 
                     { name !== '' && state !== '' && description !== '' && difficulty !== '' && minPlayers !== ''
                         && maxPlayers !== '' && duration !== '' && file !== '' && <div className='center-text'>
