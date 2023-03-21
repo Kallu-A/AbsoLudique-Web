@@ -3,11 +3,10 @@ import {verifyAuth} from "./lib/auth";
 
 export async function middleware(req) {
     const pathname = req.nextUrl.pathname;
-    const protectedPaths = ["/", "/armoire", "ajout/jeu"];
+    const protectedPaths = ["/", "/armoire", "/ajout/jeu"];
     const isPathProtected = protectedPaths?.some((path) => pathname === path);
     if (isPathProtected) {
         const token = req.cookies.get('jwt')
-
         let verifiedToken = null
         if (token !== undefined && token !== null)
             if (token['value'] !== undefined && token['value'] !== null)
