@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {BACK_PATH, fetcher_post, REDIRECT_GOOGLE} from "../api";
 import {valueToCategory} from "../convert/value_to_category";
+import Image from "next/image";
 
 export default function put_game(token, idGame) {
     let init = false
@@ -22,7 +23,6 @@ export default function put_game(token, idGame) {
 
     useEffect( () => {
         if (!init) {
-            console.log('do it')
             fetch( BACK_PATH + 'game/' + idGame , {
                 mode: 'cors',
                 credentials: 'omit',
@@ -74,7 +74,7 @@ export default function put_game(token, idGame) {
         formdata.append("file",  input.files[0])
         try {
             const res = await fetch( BACK_PATH + 'game', {
-                method: 'post',
+                method: 'put',
                 mode: 'cors',
                 credentials: 'omit',
                 redirect: 'follow',
@@ -86,13 +86,6 @@ export default function put_game(token, idGame) {
             })
 
             if (res.status === 200) {
-                setName('')
-                setState('')
-                setDescription('')
-                setDifficulty('1')
-                setMinPlayers('')
-                setMaxPlayers('')
-                setDuration('')
                 setFile('')
 
                 res.body.getReader().read().then( value => {
@@ -112,12 +105,11 @@ export default function put_game(token, idGame) {
                                 .catch(err => {
                                     console.log(err)
                                 })
-                        categories[cat][1](false)
                     }
 
                 })
 
-                alert("Jeu ajouter")
+                alert("Jeu modifier")
 
             } else {
                 res.body.getReader().read().then( value => alert(
@@ -132,8 +124,11 @@ export default function put_game(token, idGame) {
 
     return (
         <div className='scrollable-vertical-game margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
-            <h1 className='text-2 center-text margin-top-bottom-5 title-color'>Modifier le jeu</h1>
+            <h1 className='text-2 center-text margin-top-bottom-5 title-color vertical-align'>Modifier le jeu</h1>
+            <img src= {`${BACK_PATH + "static/" + ((idGame !== '') ?  'upload/' + idGame: 'default.png')}`}
+                 alt='image du jeu' width="60" height="60" className="vertical-align ml-20"/>
             <hr className='margin-padding-bottom-20'></hr>
+
 
             <div className='margin-auto flex flex-center'>
                 <form className='w-fit-content max-w-add-game display-form'>
@@ -228,7 +223,7 @@ export default function put_game(token, idGame) {
                        Image du jeu</label>
                     </div>
                     <div className="md:w-2/3">
-                      <input
+                        <input
                             className="block rounded-0p25 w-fit cursor-pointer border focus:outline-none focus:border-transparent rounded-lg"
                             value={file} onChange={e => setFile(e.target.value)}
                             accept=".png,.jpg,.jpeg"
@@ -263,7 +258,7 @@ export default function put_game(token, idGame) {
                     </div>
 
                     { name !== '' && state !== '' && description !== '' && difficulty !== '' && minPlayers !== ''
-                        && maxPlayers !== '' && duration !== '' && file !== '' && <div className='center-text'>
+                        && maxPlayers !== '' && duration !== '' && <div className='center-text'>
                         <button type="submit" className='button-style button-larger margin-top-20' onClick={save}
                         >Enregistrer</button>
                     </div>}

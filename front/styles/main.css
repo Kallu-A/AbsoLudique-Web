@@ -842,8 +842,15 @@ video {
     overflow: auto;
 }
 .scrollable-vertical-game {
-    height: 80vh;
-    overflow: auto;
+    height: fit-content;
+    overflow: scroll;
+}
+.vertical-align {
+    display: inline-block;
+    vertical-align: middle;
+}
+.float-right {
+    float: right;
 }
 .scrollable-vertical-form {
     overflow: auto;
