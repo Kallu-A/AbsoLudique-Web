@@ -14,7 +14,7 @@ class BoardgameSchema(SQLAlchemySchema):
         load_instance = True
 
     idBoardgame = auto_field()
-
+    state = auto_field()
     name = auto_field()
     description = auto_field()
     difficulty = EnumField(Difficulty, by_value=True)
