@@ -54,7 +54,8 @@ def games_model(cursor: int, limit: int) -> list:
 def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
                        duration: int, variation: float, name: str, category_str: str) -> list:
 
-    variation = 0.2 if variation is None else variation
+    variation = 0.3 if variation is None else variation
+    integerDelay = 2
 
     build_query = Boardgame.query
     if players is not None:
@@ -69,8 +70,8 @@ def games_filter_model(cursor: int, limit: int, players: int, difficulty: int,
 
     if duration is not None:
         build_query = build_query\
-            .filter(duration - duration * variation <= Boardgame.duration)\
-            .filter(duration + duration * variation >= Boardgame.duration)
+            .filter(duration - duration * variation - integerDelay <= Boardgame.duration)\
+            .filter(duration + duration * variation + integerDelay >= Boardgame.duration)
 
     if name is not None:
         build_query = build_query\

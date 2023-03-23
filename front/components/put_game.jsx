@@ -23,6 +23,7 @@ export default function put_game(token, idGame) {
 
     useEffect( () => {
         if (!init) {
+            init = true
             fetch( BACK_PATH + 'game/' + idGame , {
                 mode: 'cors',
                 credentials: 'omit',
@@ -49,7 +50,7 @@ export default function put_game(token, idGame) {
 
             }).catch(err => console.log(err))
 
-            init = true
+
         }
     })
 

@@ -6,6 +6,9 @@ class CategoryValue(enum.Enum):
     deckbuilding = 2
     cooperative = 3
     betrayal = 4
+    strategic = 5
+    bluff = 6
+    reflection = 7
 
 
 def cactegory_value_json():
@@ -14,4 +17,7 @@ def cactegory_value_json():
         {"deck building": CategoryValue.deckbuilding.value},
         {"coopératif": CategoryValue.cooperative.value},
         {"trahison": CategoryValue.betrayal.value},
+        {"stratégie": CategoryValue.strategic.value},
+        {"bluff": CategoryValue.bluff.value},
+        {"réflexion": CategoryValue.reflection.value},
     ]
