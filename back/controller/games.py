@@ -2,7 +2,8 @@ from flask import request, Response
 
 from controller import app
 from model.decorators import account_admin
-from model.path.games_model import games_model, games_filter_model, game_id, post_game_model, delete_game_id_model
+from model.path.games_model import games_model, games_filter_model, game_id, post_game_model, delete_game_id_model, \
+    put_game_model
 
 from flask_jwt_extended import jwt_required
 
@@ -56,3 +57,12 @@ def delete_game_id(id_game: int) -> Response:
 @account_admin()
 def post_game():
     return post_game_model()
+
+
+# post a game with value in
+# request.form as data & file
+@app.put("/game")
+@jwt_required()
+@account_admin()
+def put_game():
+    return put_game_model()

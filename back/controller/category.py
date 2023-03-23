@@ -15,8 +15,10 @@ def post_category(id_game: int, category: int):
 
 # put a category to a existing boardgame
 # or remove if already exists
-@app.put("/category/<int:id_game>/<int:category>")
+# if remove !== 0 then remove the category
+# else add the category
+@app.put("/category/<int:id_game>/<int:category>/<int:remove>")
 @jwt_required()
 @account_admin()
-def put_category(id_game: int, category: int):
-    return put_category_model(id_game, category)
+def put_category(id_game: int, category: int, remove: int):
+    return put_category_model(id_game, category, remove)

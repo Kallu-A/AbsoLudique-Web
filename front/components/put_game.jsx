@@ -91,25 +91,25 @@ export default function put_game(token, idGame) {
                 res.body.getReader().read().then( value => {
                     let id = new TextDecoder("utf-8").decode(value.value)
                     for (let cat in categories) {
-                        if (categories[cat][0])
-                            fetch(BACK_PATH + 'category/' + id + "/" + category_values[cat][0], {
-                                method: 'post',
-                                mode: 'cors',
-                                credentials: 'omit',
-                                redirect: 'follow',
-                                headers: {
-                                    'Authorization': 'Bearer ' + token,
-                                    'Access-Control-Allow-Origin': [BACK_PATH, REDIRECT_GOOGLE]
-                                }
+                        let action = (categories[cat][0]) ? "0" :  "1"
+                        fetch(BACK_PATH + 'category/' + id + "/" + category_values[cat][0] + "/" + action, {
+                            method: 'put',
+                            mode: 'cors',
+                            credentials: 'omit',
+                            redirect: 'follow',
+                            headers: {
+                                'Authorization': 'Bearer ' + token,
+                                'Access-Control-Allow-Origin': [BACK_PATH, REDIRECT_GOOGLE]
+                            }
+                        })
+                            .catch(err => {
+                                console.log(err)
                             })
-                                .catch(err => {
-                                    console.log(err)
-                                })
                     }
 
                 })
 
-                alert("Jeu modifier")
+                alert("Jeu modifié")
 
             } else {
                 res.body.getReader().read().then( value => alert(
@@ -123,7 +123,8 @@ export default function put_game(token, idGame) {
         }
 
     return (
-        <div className='scrollable-vertical-game margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
+        <div className="scrollable-vertical-game">
+             <div className='content-scrollable margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
             <h1 className='text-2 center-text margin-top-bottom-5 title-color vertical-align'>Modifier le jeu</h1>
             <img src= {`${BACK_PATH + "static/" + ((idGame !== '') ?  'upload/' + idGame: 'default.png')}`}
                  alt='image du jeu' width="60" height="60" className="vertical-align ml-20"/>
@@ -266,6 +267,7 @@ export default function put_game(token, idGame) {
             </form>
             </div>
 
+        </div>
         </div>
     )
 }

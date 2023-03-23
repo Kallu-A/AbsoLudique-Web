@@ -82,7 +82,7 @@ export default function add_game(token) {
 
                 })
 
-                alert("Jeu ajouter")
+                alert("Jeu ajouté")
 
             } else {
                 res.body.getReader().read().then( value => alert(
@@ -96,7 +96,8 @@ export default function add_game(token) {
         }
 
     return (
-        <div className='scrollable-vertical-game margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
+        <div className="scrollable-vertical-game">
+            <div className='content-scrollable margin-auto z-index-0 shadow-el padding-20 rounded-0p75 '>
             <h1 className='text-2 center-text margin-top-bottom-5 title-color'>Ajout d'un jeu</h1>
             <hr className='margin-padding-bottom-20'></hr>
 
@@ -237,5 +238,7 @@ export default function add_game(token) {
             </div>
 
         </div>
+        </div>
+
     )
 }

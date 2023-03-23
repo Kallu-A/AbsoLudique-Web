@@ -28,7 +28,7 @@ def post_category_model(id_game: int, category_value: int):
     return str(category.idCategory)
 
 
-def put_category_model(id_game: int, category_value: int):
+def put_category_model(id_game: int, category_value: int, remove: int):
     boardgame = Boardgame.query.filter(Boardgame.idBoardgame == id_game).first()
     if boardgame is None:
         logger.LOGGER.warning('Boardgame don\' exist id:%i - 404', id_game)
@@ -41,14 +41,20 @@ def put_category_model(id_game: int, category_value: int):
         return Response('category ' + str(category_value) + ' is not a valid category', status=406)
 
     category = Category.query.filter(Category.idBoardGame == id_game, Category.category == category_type).first()
-    if category is None:
-        category = Category(idBoardGame=id_game, category=category_type)
-        db.session.add(category)
-        db.session.commit()
-        logger.LOGGER.info('save of the game done - 200 ')
-        return str(category.idCategory)
+
+    # add the category if it doesn't exist else does nothing
+    if remove == 0:
+        if category is None:
+            category = Category(idBoardGame=id_game, category=category_type)
+            db.session.add(category)
+            db.session.commit()
+            logger.LOGGER.info('save of the game done - 200 ')
+            return str(category.idCategory)
+
+    # remove the category if it exists
     else:
-        db.session.delete(category)
-        db.session.commit()
-        logger.LOGGER.info('delete of the category done - 200 ')
-        return 'delete of the category done'
+        if category is not None:
+            db.session.delete(category)
+            db.session.commit()
+            logger.LOGGER.info('delete of the category done - 200 ')
+            return 'delete of the category done'

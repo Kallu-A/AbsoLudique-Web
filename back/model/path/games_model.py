@@ -172,3 +172,90 @@ def post_game_model():
     logger.LOGGER.info('upload of the picture done - 200 ')
 
     return str(boardgame.idBoardgame)
+
+
+# put a game in database
+# make sur all fields are in the json in request.form['data']
+# return Response if something goes wrong
+def put_game_model():
+    try:
+        data = json.loads(request.form['data'])
+    except json.decoder.JSONDecodeError:
+        logger.LOGGER.warning('Json invalid - 412')
+        return Response("Json invalid", status=412)
+
+    msg = " parameter not found"
+
+    name = data.get('name')
+    idBoardgame = data.get('idBoardgame')
+    state = data.get('state')
+    description = data.get('description')
+    difficulty_value = data.get('difficulty')
+    min_players = data.get('minPlayers')
+    max_players = data.get('maxPlayers')
+    duration = data.get('duration')
+
+    if idBoardgame is None:
+        return Response("idBoardgame" + msg, status=412)
+    if name is None:
+        return Response("name" + msg, status=412)
+    if state is None:
+        return Response("state" + msg, status=412)
+    if description is None:
+        return Response("description" + msg, status=412)
+    if difficulty_value is None:
+        return Response("difficulty" + msg, status=412)
+    if min_players is None:
+        return Response("minPlayers" + msg, status=412)
+    if max_players is None:
+        return Response("maxPlayers" + msg, status=412)
+    if duration is None:
+        return Response("duration" + msg, status=412)
+
+    try:
+        difficulty = Difficulty(int(difficulty_value))
+    except ValueError:
+        logger.LOGGER.warning('difficulty ' + str(difficulty_value) + ' is not a valid difficulty - 406')
+        return Response('difficulty ' + str(difficulty_value) + ' is not a valid difficulty', status=406)
+
+    try:
+        min_players = int(min_players)
+    except (TypeError, ValueError):
+        logger.LOGGER.warning('minPlayers is not a integer - 412')
+        return Response("minPlayers is not a integer", status=412)
+    try:
+        max_players = int(max_players)
+    except (TypeError, ValueError):
+        logger.LOGGER.warning('maxPlayers is not a integer - 412')
+        return Response("maxPlayers is not a integer", status=412)
+    try:
+        duration = int(duration)
+    except (TypeError, ValueError):
+        logger.LOGGER.warning('duration is not a integer - 412')
+        return Response("duration is not a integer", status=412)
+
+    boardgame = Boardgame.query.filter(Boardgame.idBoardgame == idBoardgame).first()
+    if boardgame is None:
+        logger.LOGGER.warning('idBoardgame ' + str(idBoardgame) + ' is not a valid idBoardgame - 406')
+        return Response('idBoardgame ' + str(idBoardgame) + ' is not a existing boardgame', status=406)
+
+    boardgame.name = name
+    boardgame.state = state
+    boardgame.description = description
+    boardgame.difficulty = difficulty
+    boardgame.minPlayers = min_players
+    boardgame.maxPlayers = max_players
+    boardgame.duration = duration
+
+    db.session.add(boardgame)
+    db.session.commit()
+    logger.LOGGER.info('put of the game done - 200 ')
+    boardgame.picture = boardgame.idBoardgame
+    [success, msg] = upload_file(request, '', str(boardgame.idBoardgame))
+    if not success:
+        logger.LOGGER.warning('put without new picture - 200 ')
+
+    db.session.commit()
+    logger.LOGGER.info('upload of the picture done - 200 ')
+
+    return str(boardgame.idBoardgame)
