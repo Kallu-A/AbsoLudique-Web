@@ -58,3 +58,5 @@ def put_category_model(id_game: int, category_value: int, remove: int):
             db.session.commit()
             logger.LOGGER.info('delete of the category done - 200 ')
             return 'delete of the category done'
+
+    return str("nothing done")
