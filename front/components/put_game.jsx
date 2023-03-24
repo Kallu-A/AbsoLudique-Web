@@ -22,37 +22,33 @@ export default function put_game(token, idGame) {
     }
 
     useEffect( () => {
-        if (!init) {
-            init = true
-            fetch( BACK_PATH + 'game/' + idGame , {
-                mode: 'cors',
-                credentials: 'omit',
-                redirect: 'follow',
-                headers: {
-                    'Authorization': 'Bearer ' + token,
-                    'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+        fetch( BACK_PATH + 'game/' + idGame , {
+            mode: 'cors',
+            credentials: 'omit',
+            redirect: 'follow',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Access-Control-Allow-Origin':[BACK_PATH, REDIRECT_GOOGLE]
+            }
+        }).then(res => {
+            res.json().then( game => {
+                setName(game.name)
+                setState(game.state)
+                setDescription(game.description)
+                setMinPlayers(game.minPlayers)
+                setMaxPlayers(game.maxPlayers)
+                setDifficulty(game.difficulty)
+                setDuration(game.duration)
+                let category = game.category
+                for (let cat in category) {
+
+                    categories[category[cat].category - 1][1](true)
                 }
-            }).then(res => {
-                res.json().then( game => {
-                    setName(game.name)
-                    setState(game.state)
-                    setDescription(game.description)
-                    setMinPlayers(game.minPlayers)
-                    setMaxPlayers(game.maxPlayers)
-                    setDifficulty(game.difficulty)
-                    setDuration(game.duration)
-                    let category = game.category
-                    for (let cat in category) {
+            })
 
-                        categories[category[cat].category - 1][1](true)
-                    }
-                })
+        }).catch(err => console.log(err))
 
-            }).catch(err => console.log(err))
-
-
-        }
-    })
+    }, [])
 
     const save = async (e) => {
         e.preventDefault()

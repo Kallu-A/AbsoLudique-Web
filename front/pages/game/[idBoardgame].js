@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router'
+import {useRouter} from 'next/router'
 import {BACK_PATH, REDIRECT_GOOGLE} from "../../api";
 import {useEffect, useState} from "react";
 import {getToken, setAdmin} from "../../lib/auth";
-import add_game from "../../components/add_game";
 import put_game from "../../components/put_game";
 
 export default function GamePage({token}) {
@@ -51,6 +50,7 @@ export default function GamePage({token}) {
 }
 export async function getServerSideProps(context) {
     let token = getToken(context)
+
     return {
         props: {
             token
