@@ -4,7 +4,6 @@ import {valueToCategory} from "../convert/value_to_category";
 import Image from "next/image";
 
 export default function put_game(token, idGame) {
-    let init = false
 
     const [name, setName] = useState('')
     const [state, setState] = useState('')

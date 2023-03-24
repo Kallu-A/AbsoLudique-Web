@@ -25,7 +25,7 @@ export default function addGame({token}) {
         })
             .catch(err => console.log(err))
 
-    })
+    }, [])
     let addGame = add_game(token)
     return (
         <>

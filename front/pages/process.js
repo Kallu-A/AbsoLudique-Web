@@ -8,7 +8,7 @@ function Process() {
 
     useEffect( () => {
         router.push('/')
-    })
+    }, [])
       // This code will not be executed as the user is redirected before the page is rendered
       return (
             <div className='center-text text-center text-2 centered-element'>
