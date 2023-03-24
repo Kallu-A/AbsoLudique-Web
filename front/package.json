@@ -10,11 +10,8 @@
   ],
   "scripts": {
     "dev": "node server.js",
-    "build": "node server.js build",
-    "start": "node server.js start",
-    "build:css": "postcss styles/tailwind.css -o styles/main.css",
-    "build:watch": "postcss styles/tailwind.css -o styles/main.css --watch",
-    "prod:build": "NODE_ENV=production yarn run build:css && yarn run build"
+    "build": "NODE_ENV=production node server.js build",
+    "start": "NODE_ENV=production node server.js start"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.11",

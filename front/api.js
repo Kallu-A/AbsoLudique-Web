@@ -1,6 +1,7 @@
 // theses  3 const a value that can needed to be changer
 
-export const BACK_PATH = "https://localhost:5000/";
+export const BACK_PATH = process.env.NODE_ENV === "production" ? "https://absoludique.com/" :"https://localhost:5000/";
+
 export const REDIRECT_GOOGLE = "https://www.google.com/"
 
 export const fetcher = (path) => fetch( BACK_PATH + path, {
