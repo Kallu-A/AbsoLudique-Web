@@ -16,8 +16,6 @@ from flask_jwt_extended import JWTManager
 # To find the root of the project everywhere
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# do not remove this import allows SQLAlchemy to find the table
-
 load_dotenv()
 DURATION_TOKEN = os.getenv('DURATION_TOKEN')
 SIZE_LIMIT_MO_UPLOAD = int(os.getenv('SIZE_UPLOAD_LIMIT_FILE'))
@@ -26,6 +24,7 @@ STATIC = os.getenv('STATIC_FOLDER')
 SECRET_KEY = os.getenv('SECRET_KEY')
 ORIGIN_DEV = os.getenv('ORIGINS_DEV')
 ORIGIN_OAUTH = os.getenv('ORIGINS_OAUTH')
+FRONT_URI = os.getenv('FRONT_URI')
 
 cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credentials", "Access-Control-Allow-Origin"]
 
@@ -37,7 +36,6 @@ assert ORIGIN_DEV is not None
 assert ORIGIN_OAUTH is not None
 assert DURATION_TOKEN is not None
 
-# secret Google
 load_dotenv(Path('.secret'))
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
@@ -71,7 +69,7 @@ def create_app(test=False):
     logger_config()
     app_intern.register_blueprint(controller.app)
 
-    CORS(app_intern, origins=[ORIGIN_DEV, ORIGIN_OAUTH])
+    CORS(app_intern, origins=[ORIGIN_DEV, ORIGIN_OAUTH, FRONT_URI])
     #CORS(app_intern, origins='*')
 
     jwt = JWTManager(app_intern)
@@ -80,8 +78,6 @@ def create_app(test=False):
     db.init_app(app_intern)
     with app_intern.app_context():
         db.create_all()
-
-
 
     app_intern.logger.info("Start of the server with: "
                            "\n- SQLALCHEMY_DATABASE_URI = '" + db_path +

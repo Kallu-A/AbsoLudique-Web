@@ -5,16 +5,18 @@ import requests
 from flask import request, jsonify, redirect
 from flask_jwt_extended import create_access_token, unset_jwt_cookies
 
-from app import GOOGLE_DISCOVERY_URL, client, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 from model.database.entity.user import User, get_user, is_admin_jwt
 from setup_sql import db
 
 
 def get_google_provider_cfg():
+    from app import GOOGLE_DISCOVERY_URL
     return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
 def login_model():
+    from app import client
+
     google_provider_cfg = get_google_provider_cfg()
     authorization_endpoint = google_provider_cfg["authorization_endpoint"]
 
@@ -34,6 +36,10 @@ def login_model():
 
 
 def login_callback_model():
+    from app import client
+    from app import GOOGLE_CLIENT_ID
+    from app import GOOGLE_CLIENT_SECRET
+
     code = request.args.get("code")
 
     google_provider_cfg = get_google_provider_cfg()
@@ -42,6 +48,7 @@ def login_callback_model():
 
     redirect_callback = re.search(r"\?redirect_callback=.*&code=", request.url).group()
     redirect_callback = redirect_callback[0: len(redirect_callback) - 6]
+
 
     token_url, headers, body = client.prepare_token_request(
         token_endpoint,
