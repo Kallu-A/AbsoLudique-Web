@@ -21,6 +21,7 @@ en remplacant avec les codes fournit par Google
 GOOGLE_CLIENT_ID='ID client'
 GOOGLE_CLIENT_SECRET='Secret client'
 GOOGLE_DISCOVERY_URL='https://accounts.google.com/.well-known/openid-configuration'
+SECRET_KEY='secret key'
 ```
 
 ## Domaines

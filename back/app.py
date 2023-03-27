@@ -21,7 +21,6 @@ DURATION_TOKEN = os.getenv('DURATION_TOKEN')
 SIZE_LIMIT_MO_UPLOAD = int(os.getenv('SIZE_UPLOAD_LIMIT_FILE'))
 UPLOAD_FOLDER = os.getenv('UPLOAD_FOLDER')
 STATIC = os.getenv('STATIC_FOLDER')
-SECRET_KEY = os.getenv('SECRET_KEY')
 ORIGIN_DEV = os.getenv('ORIGINS_DEV')
 ORIGIN_OAUTH = os.getenv('ORIGINS_OAUTH')
 FRONT_URI = os.getenv('FRONT_URI')
@@ -31,7 +30,6 @@ cors_header = ["Content-Type", "Authorization", "Access-Control-Allow-Credential
 assert SIZE_LIMIT_MO_UPLOAD is not None
 assert UPLOAD_FOLDER is not None
 assert STATIC is not None
-assert SECRET_KEY is not None
 assert ORIGIN_DEV is not None
 assert ORIGIN_OAUTH is not None
 assert DURATION_TOKEN is not None
@@ -40,10 +38,12 @@ load_dotenv(Path('.secret'))
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 GOOGLE_DISCOVERY_URL = os.getenv('GOOGLE_DISCOVERY_URL')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 assert GOOGLE_CLIENT_ID is not None
 assert GOOGLE_CLIENT_SECRET is not None
 assert GOOGLE_DISCOVERY_URL is not None
+assert SECRET_KEY is not None
 
 client = WebApplicationClient(GOOGLE_CLIENT_ID)
 
