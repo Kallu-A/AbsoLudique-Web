@@ -15,8 +15,9 @@
   - Les domaines nécessaires si hébergés
 
 ### Ajout des secrets
-faire un fichier `.secret` dans le répertoire `back` le remplir de cette manière
-en remplacant avec les codes fournit par Google
+Créer un fichier `.secret` dans le répertoire `back` le remplir de cette manière
+en remplaçant avec les codes fournit par Google 
+secret_key étant à générer
 ```shell
 GOOGLE_CLIENT_ID='ID client'
 GOOGLE_CLIENT_SECRET='Secret client'
